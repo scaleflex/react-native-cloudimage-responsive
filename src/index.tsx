@@ -1,3 +1,4 @@
-export function multiply(a: number, b: number): number {
-  return a * b;
-}
+import CloudImage from './components/cloudimage/cloudimage';
+import { installCloudImage } from './utils/utils';
+
+export { CloudImage, installCloudImage };

@@ -19,8 +19,13 @@ export default defineConfig([
     extends: fixupConfigRules(compat.extends('@react-native', 'prettier')),
     plugins: { prettier },
     rules: {
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
       'react/react-in-jsx-scope': 'off',
-      'prettier/prettier': 'error',
     },
   },
   {
