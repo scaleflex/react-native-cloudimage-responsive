@@ -76,7 +76,7 @@ export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionTyp
     const searchParams = new URLSearchParams();
 
     for (let key of Object.keys(props)) {
-      if (functionCaller[key] != undefined) {
+      if (functionCaller[key] !== undefined) {
         functionCaller[key](
           key,
           props[key as keyof typeof props], // -__-
