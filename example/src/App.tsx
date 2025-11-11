@@ -11,7 +11,7 @@ installCloudImage({ domain: CLOUDIMAGE_SOURCE_URL_TEST_2 });
 export default function App() {
   return (
     <View style={styles.container}>
-      <CloudImage src="hotel.jpg" width={200} height={100} func="cropfit" />
+      <CloudImage src="hotel.jpg" width={200} />
     </View>
   );
 }

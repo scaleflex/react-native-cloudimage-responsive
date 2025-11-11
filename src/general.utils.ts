@@ -1,11 +1,11 @@
-import {
-  type ConstructImageSourceFunctionType,
-  type InstallPluginFunctionType,
-} from './utils.interface';
+import { type InstallPluginFunctionType } from './general.interface';
+
+//token.cloudimg.io/original_image_url?operations&filters&watermarks //TODO: check url format
+//TODO: Check image format as well https://docs.cloudimage.io/transformations/input-formats
 
 const POSSIBLE_DOMAINS: string[] = ['scaleflex'];
 
-export let globalDomain: string = '';
+export let globalDomain: string = ''; //TODO: -__-
 
 export const checkDomain = (domain: string): boolean => {
   let result: boolean = false;
@@ -20,26 +20,13 @@ export const checkDomain = (domain: string): boolean => {
   return result;
 };
 
-export const constructImageSource: ConstructImageSourceFunctionType = (
-  props
+export const constructImageSource = (
+  src: string,
+  searchParams: URLSearchParams = new URLSearchParams()
 ) => {
-  const { src, width, height, func } = props;
   const url = new URL(src, globalDomain);
-  const params = url.searchParams;
 
-  if (width) {
-    params.set('w', width.toString());
-  }
-
-  if (height) {
-    params.set('h', height.toString());
-  }
-
-  if (func) {
-    params.set('func', func);
-  }
-
-  return url.toString();
+  return url.toString() + '?' + searchParams.toString();
 };
 
 export const installCloudImage: InstallPluginFunctionType = ({
