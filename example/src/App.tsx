@@ -11,7 +11,19 @@ installCloudImage({ domain: CLOUDIMAGE_SOURCE_URL_TEST_2 });
 export default function App() {
   return (
     <View style={styles.container}>
-      <CloudImage src="hotel.jpg" width={200} />
+      <CloudImage
+        src="hotel.jpg"
+        width={200}
+        verticalFlip
+        radius={{
+          topLeft: 0,
+          topRight: 'max',
+          bottomLeft: 'max',
+          bottomRight: 'max',
+        }}
+        aspectRatio={{ from: 1.7, to: 2 }}
+        backgroundColor="cccc30"
+      />
     </View>
   );
 }

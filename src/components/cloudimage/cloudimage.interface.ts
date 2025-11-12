@@ -1,9 +1,9 @@
 import { type ReactNode, type CSSProperties } from 'react';
-import { type Pair, type CoordinatesInterface } from '../../general.interface';
+import { type CoordinatesInterface } from '../../general.interface';
 
 // TODO: Create sub-groups of operations to make this readable.
 // TODO: Group code
-//TODO: ... -__-
+// TODO: ... -__-
 
 export interface PositionableCropInterface {
   topLeft?: CoordinatesInterface;
@@ -12,8 +12,8 @@ export interface PositionableCropInterface {
 }
 
 export interface AspectRatioInterface {
-  decimal?: number | Pair<number>;
-  ratio?: string | Pair<string>; //TODO: string format check
+  from: number | string;
+  to?: number | string; //TODO: debug string format check
 }
 
 export interface FocalPointInterface extends CoordinatesInterface {
@@ -21,10 +21,10 @@ export interface FocalPointInterface extends CoordinatesInterface {
 }
 
 export interface RadiusInterface {
-  topLeft: number;
-  topRight: number;
-  bottomRight: number;
-  bottomLeft: number;
+  topLeft: number | 'max';
+  topRight: number | 'max';
+  bottomRight: number | 'max';
+  bottomLeft: number | 'max';
 }
 
 export type ImageFuncType =
@@ -59,45 +59,49 @@ export type ImageGravityType =
   | FocalPointInterface;
 
 export interface CloudImagePropsInterface {
+  // 'pass' props
   src: string;
+  alt?: string;
+  style?: CSSProperties;
+
+  // 'generic' props
   width?: number;
   height?: number;
   function?: ImageFuncType;
-  alt?: string;
-  style?: CSSProperties;
   preventEnlargement?: boolean;
-  gravity?: ImageGravityType; // TODO: used only with func = crop
-  positionableCrop?: PositionableCropInterface;
-  faceMargin?: number | CoordinatesInterface; //TODO: only when func=face | facehide
-  aspectRatio?: AspectRatioInterface;
-  devicePixelRatio?: number; //TODO: 1 - 5
-  horizontalFlip?: boolean;
-  verticalFlip?: boolean;
   rotate?: number;
   trim?: number;
-  radius?: number | RadiusInterface;
   removeBackgound?: boolean;
-  // TODO: only when func = fit;
   margin?: number;
-  backgroundColor?: string; //TODO: string check
   upscaleImage?: boolean;
   blurBackground?: boolean;
   blurBackgroundValue?: number;
   backgroundOpacity?: number;
   backgroundTintColor?: number;
+  backgroundColor?: string; //TODO value check
+  devicePixelRatio?: number; //TODO value check
   backgorundGravity?: BackgroundGravityType;
+
+  // 'complex' props
+  horizontalFlip?: boolean;
+  verticalFlip?: boolean;
+  gravity?: ImageGravityType;
+  positionableCrop?: PositionableCropInterface;
+  faceMargin?: number | CoordinatesInterface;
+  aspectRatio?: AspectRatioInterface;
+  radius?: number | RadiusInterface;
 }
 
 export interface FunctionCallerInterface {
-  [index: string]: URLParamFunctionType;
+  [index: string]: SetURLParamFunctionType<any>;
 }
 
 export type ConstructURLParamsFromPropsFunctionType =
   ({}: CloudImagePropsInterface) => URLSearchParams;
 
-export type URLParamFunctionType = (
+export type SetURLParamFunctionType<Type> = (
   key: string,
-  value: any,
+  value: Type,
   searchParams: URLSearchParams
 ) => void;
 
