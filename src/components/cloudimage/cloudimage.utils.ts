@@ -294,12 +294,13 @@ const functionCaller: FunctionCallerInterface = {
 export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionType =
   (props) => {
     const searchParams = new URLSearchParams();
+    const { transform = {} } = props;
 
-    for (let key of Object.keys(props)) {
+    for (let key of Object.keys(transform)) {
       if (functionCaller[key] !== undefined) {
         functionCaller[key](
           key,
-          props[key as keyof typeof props], // -__-
+          transform[key as keyof typeof transform], // -__-
           searchParams
         );
       }

@@ -3,9 +3,10 @@ import { type InstallPluginFunctionType } from './general.interface';
 //token.cloudimg.io/original_image_url?operations&filters&watermarks //TODO: check url format
 //TODO: Check image format as well https://docs.cloudimage.io/transformations/input-formats
 
-const POSSIBLE_DOMAINS: string[] = ['scaleflex'];
+const POSSIBLE_DOMAINS: string[] = ['scaleflex']; //TODO: -__-
 
-export let globalDomain: string = ''; //TODO: -__-
+export let globalDomain: string = '';
+export let globalStep: number = 0;
 
 export const checkDomain = (domain: string): boolean => {
   let result: boolean = false;
@@ -29,12 +30,13 @@ export const constructImageSource = (
   return url.toString() + '?' + searchParams.toString();
 };
 
-export const installCloudImage: InstallPluginFunctionType = ({
-  domain: newDomain,
-}) => {
-  if (!checkDomain(newDomain)) {
+export const installCloudImage: InstallPluginFunctionType = (props) => {
+  const { domain, step = 20 } = props;
+
+  if (!checkDomain(domain)) {
     throw new Error('Invalid domain!');
   }
 
-  globalDomain = newDomain;
+  globalDomain = domain;
+  globalStep = step;
 };

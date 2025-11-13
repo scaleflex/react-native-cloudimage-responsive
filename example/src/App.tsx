@@ -13,16 +13,18 @@ export default function App() {
     <View style={styles.container}>
       <CloudImage
         src="hotel.jpg"
-        width={200}
-        verticalFlip
-        radius={{
-          topLeft: 0,
-          topRight: 'max',
-          bottomLeft: 'max',
-          bottomRight: 'max',
+        transform={{
+          width: 200,
+          verticalFlip: true,
+          radius: {
+            topLeft: 0,
+            topRight: 'max',
+            bottomLeft: 'max',
+            bottomRight: 'max',
+          },
+          aspectRatio: { from: 1.7, to: 2 },
+          backgroundColor: 'cccc30',
         }}
-        aspectRatio={{ from: 1.7, to: 2 }}
-        backgroundColor="cccc30"
       />
     </View>
   );
