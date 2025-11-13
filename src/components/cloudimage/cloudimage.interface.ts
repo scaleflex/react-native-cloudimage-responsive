@@ -1,15 +1,17 @@
 import { type CSSProperties } from 'react';
 import { type CoordinatesInterface } from '../../general.interface';
 
-// TODO: ... -__-
-
 export interface PositionableCropInterface {
   topLeft?: CoordinatesInterface;
   bottomRight?: CoordinatesInterface;
   center?: CoordinatesInterface;
 }
 
-export interface TransformPropertiesIntreface {
+export interface FiltersPropertiesIntreface {}
+
+export interface WatermarksPropertiesIntreface {}
+
+export interface OperationsPropertiesIntreface {
   width?: number;
   height?: number;
   function?: ImageFuncType;
@@ -87,7 +89,10 @@ export interface CloudImagePropsInterface {
   alt?: string;
   limitFactor?: number;
   style?: CSSProperties;
-  transform?: TransformPropertiesIntreface;
+  className?: string; // TODO
+  operations?: OperationsPropertiesIntreface; // TODO: | strign as well
+  watermarks?: WatermarksPropertiesIntreface | string;
+  filters?: FiltersPropertiesIntreface | string;
 }
 
 export interface FunctionCallerInterface {

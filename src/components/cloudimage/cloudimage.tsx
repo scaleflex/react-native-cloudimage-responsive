@@ -1,18 +1,15 @@
 //TODO: width value - "auto";
 //TODO: update placeholder
 //TODO: check resize\limitFactor
-//TODO: check lazy loading
+//TODO: remaster lazy loading
 
 import { type CloudImagePropsInterface } from './cloudimage.interface';
-import {
-  constructImageSource,
-  globalLimitFactor,
-  globalLazyLoading,
-} from '../../general.utils';
+import { constructImageSource, config } from '../../general.utils';
 import { constructURLParamsFromProps } from './cloudimage.utils';
 import { useState, type FC, useRef, useEffect } from 'react';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
+  const { limitFactor: globalLimitFactor, lazyLoading } = config;
   const { src: imageSrc, style, alt, limitFactor = globalLimitFactor } = props;
 
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
@@ -73,7 +70,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
         src={src}
         style={{ ...style, visibility: imageVisibility }}
         alt={alt ? alt : src}
-        loading={globalLazyLoading ? 'lazy' : 'eager'}
+        loading={lazyLoading ? 'lazy' : 'eager'}
         onLoad={() => {
           setImageLoading(false);
         }}

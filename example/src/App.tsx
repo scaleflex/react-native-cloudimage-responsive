@@ -6,7 +6,11 @@ export const CLOUDIMAGE_SOURCE_URL_TEST = 'https://samples.scaleflex.com/'; // A
 export const CLOUDIMAGE_SOURCE_URL_TEST_2 =
   'https://doc.cloudimg.io/https://samples.scaleflex.com/'; // This works
 
-installCloudImage({ domain: CLOUDIMAGE_SOURCE_URL_TEST_2, lazyLoading: true });
+installCloudImage({
+  baseUrl: 'https://samples.scaleflex.com/',
+  customDomain: 'cloudimg.io',
+  token: 'doc',
+});
 
 export default function App() {
   return (
@@ -14,7 +18,7 @@ export default function App() {
       <div style={styles.container}>
         <CloudImage
           src="hotel.jpg"
-          transform={{
+          operations={{
             width: 200,
             verticalFlip: true,
             radius: {

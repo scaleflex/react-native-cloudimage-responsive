@@ -5,10 +5,30 @@ export interface CoordinatesInterface {
 
 export type Pair<Type> = [Type, Type];
 
+export interface ConfigurationConfigInterface {
+  token: string;
+  placeholderBackground: string;
+  customDomain: string;
+  baseUrl: string;
+  limitFactor: number;
+  lazyLoadOffset: number;
+  lazyLoading: boolean;
+  delay: number;
+  doNotReplaceURL: boolean;
+  devicePixelRatioList: number[];
+}
+
 export interface InstallPluginPropsInterface {
-  domain: string;
+  token?: string;
+  placeholderBackground?: string;
+  customDomain?: string;
+  baseUrl?: string;
   limitFactor?: number;
+  lazyLoadOffset?: number;
   lazyLoading?: boolean;
+  delay?: number;
+  doNotReplaceURL?: boolean;
+  devicePixelRatioList?: number[];
 }
 
 export type InstallPluginFunctionType =

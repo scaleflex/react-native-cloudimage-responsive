@@ -10,8 +10,6 @@ import {
 } from './cloudimage.interface';
 import { type CoordinatesInterface } from '../../general.interface';
 
-// TODO: Create debug mode and move all checks there.
-
 export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   width = 'w',
   height = 'h',
@@ -294,13 +292,13 @@ const functionCaller: FunctionCallerInterface = {
 export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionType =
   (props) => {
     const searchParams = new URLSearchParams();
-    const { transform = {} } = props;
+    const { operations = {} } = props;
 
-    for (let key of Object.keys(transform)) {
+    for (let key of Object.keys(operations)) {
       if (functionCaller[key] !== undefined) {
         functionCaller[key](
           key,
-          transform[key as keyof typeof transform], // -__-
+          operations[key as keyof typeof operations],
           searchParams
         );
       }
