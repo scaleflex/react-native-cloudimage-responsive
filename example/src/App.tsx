@@ -1,11 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { installCloudImage, CloudImage } from 'react-native-cloudimage-plugin';
 
-export const CLOUDIMAGE_SOURCE_URL_TEST = 'https://samples.scaleflex.com/'; // And this doesn't => why?
-
-export const CLOUDIMAGE_SOURCE_URL_TEST_2 =
-  'https://doc.cloudimg.io/https://samples.scaleflex.com/'; // This works
-
 installCloudImage({
   baseUrl: 'https://samples.scaleflex.com/',
   customDomain: 'cloudimg.io',
