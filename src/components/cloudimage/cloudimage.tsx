@@ -1,18 +1,23 @@
-//TODO: monitor viewport for lazyloading
 //TODO: width value - "auto";
 //TODO: update placeholder
+//TODO: check resize\limitFactor
+//TODO: check lazy loading
 
 import { type CloudImagePropsInterface } from './cloudimage.interface';
-import { constructImageSource, globalStep } from '../../general.utils';
+import {
+  constructImageSource,
+  globalLimitFactor,
+  globalLazyLoading,
+} from '../../general.utils';
 import { constructURLParamsFromProps } from './cloudimage.utils';
 import { useState, type FC, useRef, useEffect } from 'react';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
-  const { src: imageSrc, style, alt, step = globalStep } = props;
+  const { src: imageSrc, style, alt, limitFactor = globalLimitFactor } = props;
 
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
-  const [containerWidth, setContainerWidth] = useState<number>(0);
-  const [containerHeight, setContainerHeight] = useState<number>(0);
+  const [_containerWidth, setContainerWidth] = useState<number>(0); //TODO
+  const [_containerHeight, setContainerHeight] = useState<number>(0); //TODO
 
   const ref = useRef<null | HTMLImageElement>(null);
 
@@ -22,7 +27,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const placeholdeDisplay = isImageLoading ? 'inline' : 'none';
 
   const handleContainerResize = (prevValue: number, value: number): number => {
-    const hasExceededStep = Math.abs(prevValue - value) > step;
+    const hasExceededStep = Math.abs(prevValue - value) > limitFactor;
 
     return hasExceededStep ? value : prevValue;
   };
@@ -60,9 +65,6 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     console.log('Loading image: ' + src + '.');
   }
 
-  console.log('Container width: ', containerWidth);
-  console.log('Container height: ', containerHeight);
-
   return (
     <>
       <div style={{ display: placeholdeDisplay }}>Placeholder</div>
@@ -71,9 +73,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
         src={src}
         style={{ ...style, visibility: imageVisibility }}
         alt={alt ? alt : src}
+        loading={globalLazyLoading ? 'lazy' : 'eager'}
         onLoad={() => {
-          console.log('Loading of an image: ' + src + ' has finished'); //TODO: remove
-
           setImageLoading(false);
         }}
       />

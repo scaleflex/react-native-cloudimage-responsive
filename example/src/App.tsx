@@ -6,38 +6,64 @@ export const CLOUDIMAGE_SOURCE_URL_TEST = 'https://samples.scaleflex.com/'; // A
 export const CLOUDIMAGE_SOURCE_URL_TEST_2 =
   'https://doc.cloudimg.io/https://samples.scaleflex.com/'; // This works
 
-installCloudImage({ domain: CLOUDIMAGE_SOURCE_URL_TEST_2 });
+installCloudImage({ domain: CLOUDIMAGE_SOURCE_URL_TEST_2, lazyLoading: true });
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <CloudImage
-        src="hotel.jpg"
-        transform={{
-          width: 200,
-          verticalFlip: true,
-          radius: {
-            topLeft: 0,
-            topRight: 'max',
-            bottomLeft: 'max',
-            bottomRight: 'max',
-          },
-          aspectRatio: { from: 1.7, to: 2 },
-          backgroundColor: 'cccc30',
-        }}
-      />
+    <View style={styles.view}>
+      <div style={styles.container}>
+        <CloudImage
+          src="hotel.jpg"
+          transform={{
+            width: 200,
+            verticalFlip: true,
+            radius: {
+              topLeft: 0,
+              topRight: 'max',
+              bottomLeft: 'max',
+              bottomRight: 'max',
+            },
+            aspectRatio: { from: 1.7, to: 2 },
+            backgroundColor: 'cccc30',
+          }}
+        />
+      </div>
+
+      <div style={styles.divider} />
+
+      <div style={styles.container}>
+        <CloudImage src="castle.jpg" />
+      </div>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  view: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    minHeight: 2000,
+  },
+
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    minHeight: 200,
+    minWidth: 200,
+    maxHeight: 200,
+    maxWidth: 200,
     margin: 20,
-    gap: 20,
+    overflow: 'hidden',
+  },
+
+  divider: {
+    flex: 1,
+    width: 500,
+    minWidth: 500,
+    height: 1000,
+    minHeight: 1000,
+    backgroundColor: '#f55',
   },
 });

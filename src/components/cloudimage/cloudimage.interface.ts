@@ -1,8 +1,6 @@
 import { type CSSProperties } from 'react';
 import { type CoordinatesInterface } from '../../general.interface';
 
-// TODO: Create sub-groups of operations to make this readable.
-// TODO: Group code
 // TODO: ... -__-
 
 export interface PositionableCropInterface {
@@ -28,7 +26,6 @@ export interface TransformPropertiesIntreface {
   backgroundColor?: string; //TODO value check
   devicePixelRatio?: number; //TODO value check
   backgorundGravity?: BackgroundGravityType;
-
   horizontalFlip?: boolean;
   verticalFlip?: boolean;
   gravity?: ImageGravityType;
@@ -88,7 +85,7 @@ export type ImageGravityType =
 export interface CloudImagePropsInterface {
   src: string;
   alt?: string;
-  step?: number;
+  limitFactor?: number;
   style?: CSSProperties;
   transform?: TransformPropertiesIntreface;
 }

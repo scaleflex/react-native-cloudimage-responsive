@@ -7,7 +7,8 @@ export type Pair<Type> = [Type, Type];
 
 export interface InstallPluginPropsInterface {
   domain: string;
-  step?: number;
+  limitFactor?: number;
+  lazyLoading?: boolean;
 }
 
 export type InstallPluginFunctionType =

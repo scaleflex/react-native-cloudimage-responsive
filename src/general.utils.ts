@@ -5,8 +5,10 @@ import { type InstallPluginFunctionType } from './general.interface';
 
 const POSSIBLE_DOMAINS: string[] = ['scaleflex']; //TODO: -__-
 
+//TODO: configObject\state
 export let globalDomain: string = '';
-export let globalStep: number = 0;
+export let globalLimitFactor: number = 0;
+export let globalLazyLoading: boolean = false;
 
 export const checkDomain = (domain: string): boolean => {
   let result: boolean = false;
@@ -31,12 +33,13 @@ export const constructImageSource = (
 };
 
 export const installCloudImage: InstallPluginFunctionType = (props) => {
-  const { domain, step = 20 } = props;
+  const { domain, limitFactor = 20, lazyLoading = false } = props;
 
   if (!checkDomain(domain)) {
     throw new Error('Invalid domain!');
   }
 
   globalDomain = domain;
-  globalStep = step;
+  globalLimitFactor = limitFactor;
+  globalLazyLoading = lazyLoading;
 };
