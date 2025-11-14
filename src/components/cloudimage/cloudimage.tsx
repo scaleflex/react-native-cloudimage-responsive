@@ -2,6 +2,7 @@
 //TODO: update placeholder
 //TODO: check resize\limitFactor
 //TODO: remaster lazy loading
+//TODO: create custom hook and move some code there
 
 import { type CloudImagePropsInterface } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
