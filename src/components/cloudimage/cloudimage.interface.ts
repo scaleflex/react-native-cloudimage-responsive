@@ -25,8 +25,8 @@ export interface OperationsPropertiesIntreface {
   blurBackgroundValue?: number;
   backgroundOpacity?: number;
   backgroundTintColor?: number;
-  backgroundColor?: string; //TODO value check
-  devicePixelRatio?: number; //TODO value check
+  backgroundColor?: string;
+  devicePixelRatio?: number;
   backgorundGravity?: BackgroundGravityType;
   horizontalFlip?: boolean;
   verticalFlip?: boolean;
@@ -39,11 +39,11 @@ export interface OperationsPropertiesIntreface {
 
 export interface AspectRatioInterface {
   from: number | string;
-  to?: number | string; //TODO: debug string format check
+  to?: number | string;
 }
 
 export interface FocalPointInterface extends CoordinatesInterface {
-  coordinatesType?: 'pixels' | 'percentage' | 'coefficient'; //TODO: "pixels" for default
+  coordinatesType?: 'pixels' | 'percentage' | 'coefficient';
 }
 
 export interface RadiusInterface {
@@ -89,10 +89,10 @@ export interface CloudImagePropsInterface {
   alt?: string;
   limitFactor?: number;
   style?: CSSProperties;
-  className?: string; // TODO
-  operations?: OperationsPropertiesIntreface; // TODO: | strign as well
-  watermarks?: WatermarksPropertiesIntreface | string;
-  filters?: FiltersPropertiesIntreface | string;
+  className?: string;
+  operations?: OperationsPropertiesIntreface | string;
+  watermarks?: WatermarksPropertiesIntreface | string; // TODO
+  filters?: FiltersPropertiesIntreface | string; // TODO
 }
 
 export interface FunctionCallerInterface {
@@ -100,7 +100,7 @@ export interface FunctionCallerInterface {
 }
 
 export type ConstructURLParamsFromPropsFunctionType =
-  ({}: CloudImagePropsInterface) => URLSearchParams;
+  ({}: CloudImagePropsInterface) => string;
 
 export type SetURLParamFunctionType<Type> = (
   key: string,

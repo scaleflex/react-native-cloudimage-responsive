@@ -12,21 +12,23 @@ export let config: ConfigurationConfigInterface = {
   lazyLoadOffset: 100, //TODO
   lazyLoading: true, //TODO
   delay: 0, //TODO
-  doNotReplaceURL: false, //TODO
-  devicePixelRatioList: [1, 1.5, 2], //TODO
+  doNotReplaceURL: false,
+  devicePixelRatioList: [1, 1.5, 2],
 };
 
 export const constructImageSource = (
   src: string,
-  searchParams: URLSearchParams = new URLSearchParams()
+  searchParamsString: string = ''
 ) => {
-  const { customDomain, token, baseUrl } = config;
+  const { customDomain, token, baseUrl, doNotReplaceURL } = config;
 
-  const url = new URL(
-    'https://' + token + '.' + customDomain + '/' + baseUrl + src
-  );
+  if (doNotReplaceURL) {
+    return src + searchParamsString;
+  }
 
-  return url.toString() + '?' + searchParams.toString();
+  const url = new URL(`https://${token}.${customDomain}/${baseUrl}${src}`);
+
+  return `${url.toString()}?${searchParamsString}`;
 };
 
 export const installCloudImage: InstallPluginFunctionType = (props) => {

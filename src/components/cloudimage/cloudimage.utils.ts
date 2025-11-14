@@ -9,6 +9,7 @@ import {
   type AspectRatioInterface,
 } from './cloudimage.interface';
 import { type CoordinatesInterface } from '../../general.interface';
+import { config } from '../../general.utils';
 
 export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   width = 'w',
@@ -98,18 +99,16 @@ const setFlipURLParam: SetURLParamFunctionType<boolean> = (
 };
 
 const setDevicePixelRatioURLParam: SetURLParamFunctionType<number> = (
-  // TODO: move to debug
   _key,
   value,
   searchParams
 ) => {
+  const { devicePixelRatioList } = config;
   const searchParamName: string = 'dpr';
-  const isValueSuitable: boolean = value > 0 && value < 5;
+  const isValueSuitable: boolean = devicePixelRatioList.includes(value);
 
   if (!isValueSuitable) {
-    throw new Error(
-      'Device pixel ratio only allows positive values limited to 5'
-    );
+    throw new Error('Device pixel ratio value not alllowed.');
   }
 
   const searchParamValue = value.toString();
@@ -144,8 +143,7 @@ const setGravityURLParam: SetURLParamFunctionType<ImageGravityType> = (
       }
     }
 
-    searchParamValue =
-      typedValue.x.toString() + units + ',' + typedValue.y.toString() + units;
+    searchParamValue = `${typedValue.x.toString()}${units},${typedValue.y.toString()}${units}`;
   } else {
     searchParamValue = value;
   }
@@ -158,15 +156,13 @@ const setPositionableCropURLParam: SetURLParamFunctionType<
 > = (_key, value, searchParams) => {
   if (value.bottomRight) {
     const searchParamName: string = 'br_px';
-    const searchParamValue: string =
-      value.bottomRight.x.toString() + ',' + value.bottomRight.y.toString();
+    const searchParamValue: string = `${value.bottomRight.x.toString()},${value.bottomRight.y.toString()}`;
     searchParams.set(searchParamName, searchParamValue);
   }
 
   if (value.topLeft) {
     const searchParamName: string = 'tl_px';
-    const searchParamValue: string =
-      value.topLeft.x.toString() + ',' + value.topLeft.y.toString();
+    const searchParamValue: string = `${value.topLeft.x.toString()},${value.topLeft.y.toString()}`;
     searchParams.set(searchParamName, searchParamValue);
   }
 
@@ -187,14 +183,13 @@ const setFaceMarginURLParam: SetURLParamFunctionType<
   }
 
   if (typeof value === 'object') {
-    searchParamValue = value.x.toString() + ',' + value.y.toString();
+    searchParamValue = `${value.x.toString()},${value.y.toString()}`;
   }
 
   searchParams.set(searchParamName, searchParamValue);
 };
 
 const setRadiusURLParam: SetURLParamFunctionType<number | RadiusInterface> = (
-  //TODO: make it better -_-
   _key,
   value,
   searchParams
@@ -292,7 +287,11 @@ const functionCaller: FunctionCallerInterface = {
 export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionType =
   (props) => {
     const searchParams = new URLSearchParams();
-    const { operations = {} } = props;
+    const { operations = '' } = props;
+
+    if (typeof operations === 'string') {
+      return operations;
+    }
 
     for (let key of Object.keys(operations)) {
       if (functionCaller[key] !== undefined) {
@@ -304,5 +303,5 @@ export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionTyp
       }
     }
 
-    return searchParams;
+    return searchParams.toString();
   };

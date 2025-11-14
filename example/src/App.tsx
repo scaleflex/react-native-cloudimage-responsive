@@ -31,7 +31,7 @@ export default function App() {
       <div style={styles.divider} />
 
       <div style={styles.container}>
-        <CloudImage src="castle.jpg" />
+        <CloudImage src="castle.jpg" operations={'flip=hv&w=500&'} />
       </div>
     </View>
   );
