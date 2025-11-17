@@ -88,6 +88,7 @@ export interface CloudImagePropsInterface {
   src: string;
   alt?: string;
   limitFactor?: number;
+  mode?: 'fit' | 'cover' | 'none';
   style?: CSSProperties;
   className?: string;
   operations?: OperationsPropertiesIntreface | string;
@@ -95,12 +96,23 @@ export interface CloudImagePropsInterface {
   filters?: FiltersPropertiesIntreface | string; // TODO
 }
 
+export interface GetURLParamsStringPropsInterface
+  extends CloudImagePropsInterface {
+  containerHeight: number;
+  containerWidth: number;
+  limitFactor: number;
+}
+
 export interface FunctionCallerInterface {
   [index: string]: SetURLParamFunctionType<any>;
 }
 
-export type ConstructURLParamsFromPropsFunctionType = (
+export type ConstructURLParamsFromOperationsFunctionType = (
   operations: OperationsPropertiesIntreface | string
+) => string;
+
+export type getURLParamsStringFunctionType = (
+  props: GetURLParamsStringPropsInterface
 ) => string;
 
 export type SetURLParamFunctionType<Type> = (

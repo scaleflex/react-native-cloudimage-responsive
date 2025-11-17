@@ -1,5 +1,6 @@
 import {
-  type ConstructURLParamsFromPropsFunctionType,
+  type getURLParamsStringFunctionType,
+  type ConstructURLParamsFromOperationsFunctionType,
   type SetURLParamFunctionType,
   type FunctionCallerInterface,
   type ImageGravityType,
@@ -295,7 +296,7 @@ const functionCaller: FunctionCallerInterface = {
   backgroundColor: setGenericURLParam,
 };
 
-export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionType =
+export const constructURLParamsFromOperations: ConstructURLParamsFromOperationsFunctionType =
   (operations = '') => {
     const searchParams = new URLSearchParams();
 
@@ -315,3 +316,27 @@ export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionTyp
 
     return searchParams.toString();
   };
+
+export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
+  const {
+    operations = '',
+    containerHeight,
+    containerWidth,
+    limitFactor,
+    mode = 'fit',
+  } = props;
+
+  const urlParamsString = constructURLParamsFromOperations(operations);
+
+  if (mode !== 'none') {
+    const [roundedWidth, roundedHeight] = getRoundedSizes(
+      containerWidth,
+      containerHeight,
+      limitFactor
+    );
+
+    return `w=${roundedWidth}&h=${roundedHeight}&func=${mode}&${urlParamsString}`;
+  }
+
+  return urlParamsString;
+};
