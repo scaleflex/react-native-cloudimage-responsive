@@ -1,10 +1,10 @@
 //TODO: remaster lazy loading
-//TODO: create custom hook and move some code there
 
 import { type CloudImagePropsInterface } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
+import useElementSizes from '../../hooks/use-element-sizes';
 import { getURLParamsString } from './cloudimage.utils';
-import { useState, type FC, useRef, useEffect } from 'react';
+import { useState, type FC } from 'react';
 import Placeholder from '../placeholder/placeholder';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
@@ -23,9 +23,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   } = props;
 
   const [isImageLoading, setImageLoading] = useState<boolean>(true);
-  const [containerWidth, setContainerWidth] = useState<number>(0); //TODO
-  const [containerHeight, setContainerHeight] = useState<number>(0); //TODO
-  const ref = useRef<null | HTMLImageElement>(null);
+  const [ref, containerWidth, containerHeight] =
+    useElementSizes<HTMLImageElement>();
 
   const searchParamsString = getURLParamsString({
     containerHeight,
@@ -37,31 +36,6 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const src = constructImageSource(imageSrc, searchParamsString);
 
   const imageVisibility = isImageLoading ? 'hidden' : 'visible';
-
-  useEffect(() => {
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-
-        setContainerWidth(width);
-
-        setContainerHeight(height);
-      }
-    });
-
-    const element = ref.current?.parentElement;
-
-    if (!element) {
-      return;
-    }
-
-    observer.observe(element);
-
-    return () => {
-      observer.unobserve(element);
-      observer.disconnect();
-    };
-  }, []);
 
   if (isImageLoading) {
     console.log('Loading image: ' + src);
