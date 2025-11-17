@@ -84,9 +84,23 @@ export type ImageGravityType =
   | BackgroundGravityType
   | FocalPointInterface;
 
+export type CrossOriginType = 'anonymous' | 'use-credentials';
+
+export type ReferrerPolicyType =
+  | 'no-referrer'
+  | 'no-referrer-when-downgrade'
+  | 'origin'
+  | 'origin-when-cross-origin'
+  | 'same-origin'
+  | 'strict-origin'
+  | 'strict-origin-when-cross-origin'
+  | 'unsafe-url';
+
 export interface CloudImagePropsInterface {
   src: string;
   alt?: string;
+  referrerPolicy?: ReferrerPolicyType;
+  crossOrigin?: CrossOriginType;
   limitFactor?: number;
   autoResize?: boolean;
   placeholderBackground?: string;

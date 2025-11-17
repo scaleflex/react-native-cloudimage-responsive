@@ -1,4 +1,5 @@
 //TODO: remaster lazy loading
+//TODO: React Image instead of img ?
 
 import { type CloudImagePropsInterface } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
@@ -19,6 +20,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     style,
     alt,
     className = '',
+    referrerPolicy = 'strict-origin-when-cross-origin',
+    crossOrigin = 'anonymous',
     placeholderBackground = globalPlaceholderBackground,
   } = props;
 
@@ -50,6 +53,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
         height={containerHeight}
       />
       <img
+        referrerPolicy={referrerPolicy}
+        crossOrigin={crossOrigin}
         className={className}
         ref={ref}
         src={src}

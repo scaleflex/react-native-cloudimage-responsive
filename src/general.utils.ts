@@ -11,7 +11,7 @@ export let config: ConfigurationConfigInterface = {
   limitFactor: 100,
   lazyLoadOffset: 100, //TODO
   lazyLoading: true, //TODO
-  delay: 0, //TODO
+  delay: 0, //TODO ?
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };
@@ -32,6 +32,5 @@ export const constructImageSource = (
 };
 
 export const installCloudImage: InstallPluginFunctionType = (props) => {
-  //Todo: collect scren info and pass to config
   config = { ...config, ...props };
 };
