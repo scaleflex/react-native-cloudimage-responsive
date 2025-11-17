@@ -8,7 +8,7 @@ import {
   type RadiusInterface,
   type AspectRatioInterface,
 } from './cloudimage.interface';
-import { type CoordinatesInterface } from '../../general.interface';
+import { type CoordinatesInterface, type Pair } from '../../general.interface';
 import { config } from '../../general.utils';
 
 export enum COMPONENT_TO_SEARCHPARAM_TABLE {
@@ -29,6 +29,17 @@ export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   backgroundTintColor = 'bg_colorize', //bg_colourize
   backgorundGravity = 'bg_gravity',
 }
+
+export const getRoundedSizes = (
+  width: number,
+  height: number,
+  limitFactor: number
+): Pair<number, number> => {
+  const roundedWidth = Math.round(width / limitFactor) * limitFactor;
+  const roundedHeight = Math.round(height / limitFactor) * limitFactor;
+
+  return [roundedWidth, roundedHeight];
+};
 
 const setGenericURLParam: SetURLParamFunctionType<any> = (
   key,
@@ -285,9 +296,8 @@ const functionCaller: FunctionCallerInterface = {
 };
 
 export const constructURLParamsFromProps: ConstructURLParamsFromPropsFunctionType =
-  (props) => {
+  (operations = '') => {
     const searchParams = new URLSearchParams();
-    const { operations = '' } = props;
 
     if (typeof operations === 'string') {
       return operations;

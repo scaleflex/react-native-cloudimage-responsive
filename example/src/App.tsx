@@ -14,7 +14,6 @@ export default function App() {
         <CloudImage
           src="hotel.jpg"
           operations={{
-            width: 200,
             verticalFlip: true,
             radius: {
               topLeft: 0,
@@ -31,7 +30,7 @@ export default function App() {
       <div style={styles.divider} />
 
       <div style={styles.container}>
-        <CloudImage src="castle.jpg" operations={'flip=hv&w=500&'} />
+        <CloudImage src="castle.jpg" operations={'flip=h'} />
       </div>
     </View>
   );
@@ -51,8 +50,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     minHeight: 200,
     minWidth: 200,
-    maxHeight: 200,
     maxWidth: 200,
+    maxHeight: 200,
     margin: 20,
     overflow: 'hidden',
   },

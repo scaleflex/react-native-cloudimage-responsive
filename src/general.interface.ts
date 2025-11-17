@@ -3,7 +3,7 @@ export interface CoordinatesInterface {
   y: number;
 }
 
-export type Pair<Type> = [Type, Type];
+export type Pair<Type1, Type2> = [Type1, Type2];
 
 export interface ConfigurationConfigInterface {
   token: string;

@@ -23,7 +23,7 @@ export const constructImageSource = (
   const { customDomain, token, baseUrl, doNotReplaceURL } = config;
 
   if (doNotReplaceURL) {
-    return src + searchParamsString;
+    return `${src}?${searchParamsString}`;
   }
 
   const url = new URL(`https://${token}.${customDomain}/${baseUrl}${src}`);

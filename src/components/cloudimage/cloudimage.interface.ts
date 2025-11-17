@@ -99,8 +99,9 @@ export interface FunctionCallerInterface {
   [index: string]: SetURLParamFunctionType<any>;
 }
 
-export type ConstructURLParamsFromPropsFunctionType =
-  ({}: CloudImagePropsInterface) => string;
+export type ConstructURLParamsFromPropsFunctionType = (
+  operations: OperationsPropertiesIntreface | string
+) => string;
 
 export type SetURLParamFunctionType<Type> = (
   key: string,
