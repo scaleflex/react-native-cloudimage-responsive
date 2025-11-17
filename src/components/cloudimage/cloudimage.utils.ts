@@ -326,6 +326,8 @@ export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
     autoResize = true,
   } = props;
 
+  const { devicePixelRatioList } = config;
+
   const urlParamsString = constructURLParamsFromOperations(operations);
 
   if (autoResize) {
@@ -335,7 +337,13 @@ export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
       limitFactor
     );
 
-    return `w=${roundedWidth}&h=${roundedHeight}&${urlParamsString}`;
+    const isDeviceSupported = devicePixelRatioList.includes(
+      window.devicePixelRatio
+    );
+
+    const devicePixelRatio = isDeviceSupported ? window.devicePixelRatio : 1;
+
+    return `w=${roundedWidth}&h=${roundedHeight}&${urlParamsString}&dpr=${devicePixelRatio}`;
   }
 
   return urlParamsString;
