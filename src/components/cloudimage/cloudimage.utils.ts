@@ -323,19 +323,19 @@ export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
     containerHeight,
     containerWidth,
     limitFactor,
-    mode = 'fit',
+    autoResize = true,
   } = props;
 
   const urlParamsString = constructURLParamsFromOperations(operations);
 
-  if (mode !== 'none') {
+  if (autoResize) {
     const [roundedWidth, roundedHeight] = getRoundedSizes(
       containerWidth,
       containerHeight,
       limitFactor
     );
 
-    return `w=${roundedWidth}&h=${roundedHeight}&func=${mode}&${urlParamsString}`;
+    return `w=${roundedWidth}&h=${roundedHeight}&${urlParamsString}`;
   }
 
   return urlParamsString;

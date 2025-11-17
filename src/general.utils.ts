@@ -8,7 +8,7 @@ export let config: ConfigurationConfigInterface = {
   placeholderBackground: '#f4f4f4', //TODO
   customDomain: 'cloudimage.io',
   baseUrl: '/',
-  limitFactor: 100, //TODO: check
+  limitFactor: 100,
   lazyLoadOffset: 100, //TODO
   lazyLoading: true, //TODO
   delay: 0, //TODO

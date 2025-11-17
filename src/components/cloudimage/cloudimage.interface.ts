@@ -88,7 +88,8 @@ export interface CloudImagePropsInterface {
   src: string;
   alt?: string;
   limitFactor?: number;
-  mode?: 'fit' | 'cover' | 'none';
+  autoResize?: boolean;
+  placeholderBackground?: string;
   style?: CSSProperties;
   className?: string;
   operations?: OperationsPropertiesIntreface | string;

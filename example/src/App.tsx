@@ -1,6 +1,8 @@
 import { StyleSheet, View } from 'react-native';
 import { installCloudImage, CloudImage } from 'react-native-cloudimage-plugin';
 
+const LOADING_BACKGROUND_SRC = 'https://c.tenor.com/WX_LDjYUrMsAAAAC/tenor.gif';
+
 installCloudImage({
   baseUrl: 'https://samples.scaleflex.com/',
   customDomain: 'cloudimg.io',
@@ -13,7 +15,10 @@ export default function App() {
       <div style={styles.container}>
         <CloudImage
           src="hotel.jpg"
+          autoResize
+          placeholderBackground={LOADING_BACKGROUND_SRC}
           operations={{
+            function: 'bound',
             verticalFlip: true,
             radius: {
               topLeft: 0,
@@ -21,7 +26,6 @@ export default function App() {
               bottomLeft: 'max',
               bottomRight: 'max',
             },
-            aspectRatio: { from: 1.7, to: 2 },
             backgroundColor: 'cccc30',
           }}
         />
@@ -30,7 +34,11 @@ export default function App() {
       <div style={styles.divider} />
 
       <div style={styles.container}>
-        <CloudImage src="castle.jpg" operations={'flip=v'} mode="none" />
+        <CloudImage
+          src="castle.jpg"
+          operations={'flip=v&func=cover'}
+          autoResize
+        />
       </div>
     </View>
   );
