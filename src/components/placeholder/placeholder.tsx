@@ -2,11 +2,7 @@ import { type PlaceholderPropsInterface } from './placeholder.interface';
 import { type FC } from 'react';
 
 const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
-  const { isResourceLoading, width, height, placeholderContent } = props;
-
-  if (!isResourceLoading) {
-    return;
-  }
+  const { width, height, placeholderContent } = props;
 
   try {
     new URL(placeholderContent);

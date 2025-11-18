@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState, type RefObject } from 'react'; //TODO: consider using useLayoutEffect
+import { useEffect, useRef, useState, type RefObject } from 'react';
+const DEFAULT_STATE_VALUE: number = 50;
 
-export default function useElementSizes<
-  T extends HTMLElement = HTMLDivElement,
->(): [RefObject<T | null>, number, number] {
+export default function useElementSizes<T extends Element = HTMLDivElement>(): [
+  RefObject<T | null>,
+  number,
+  number,
+] {
   const ref = useRef<T | null>(null);
 
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
+  const [width, setWidth] = useState<number>(DEFAULT_STATE_VALUE);
+  const [height, setHeight] = useState<number>(DEFAULT_STATE_VALUE);
 
   if (typeof window === 'undefined') {
     return [ref, width, height];

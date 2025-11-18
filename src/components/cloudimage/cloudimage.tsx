@@ -1,17 +1,63 @@
-//TODO: remaster lazy loading
-//TODO: React Image instead of img ?
-
-import { type CloudImagePropsInterface } from './cloudimage.interface';
+import {
+  type CloudImagePropsInterface,
+  type ImageWrapperPropsInterface,
+} from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
 import useElementSizes from '../../hooks/use-element-sizes';
 import { getURLParamsString } from './cloudimage.utils';
-import { useState, type FC } from 'react';
+import { useEffect, useState, type FC } from 'react';
+import { Image } from 'react-native';
 import Placeholder from '../placeholder/placeholder';
+
+const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
+  const {
+    src,
+    referrerPolicy,
+    crossOrigin,
+    style,
+    alt,
+    onLoad = () => {},
+  } = props;
+
+  const [width, setWidth] = useState<number>(0);
+  const [height, setHeight] = useState<number>(0);
+
+  useEffect(() => {
+    Image.getSize(
+      src,
+      (imageWidth, imageHeight) => {
+        setHeight(imageHeight);
+        setWidth(imageWidth);
+      },
+      (error) => {
+        throw new Error(`Error getting image size: ${error}`);
+      }
+    );
+  }, [src]);
+
+  if (width === 0 || height === 0) {
+    return;
+  }
+
+  return (
+    <Image
+      referrerPolicy={referrerPolicy}
+      crossOrigin={crossOrigin}
+      source={{ uri: src, width, height }}
+      onLoad={() => {
+        onLoad();
+        console.log(src);
+      }}
+      style={style}
+      alt={alt ?? src}
+    />
+  );
+};
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const {
     limitFactor: globalLimitFactor,
-    lazyLoading,
+    //lazyLoading,
     placeholderBackground: globalPlaceholderBackground,
   } = config;
 
@@ -19,15 +65,14 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     src: imageSrc,
     style,
     alt,
-    className = '',
     referrerPolicy = 'strict-origin-when-cross-origin',
     crossOrigin = 'anonymous',
     placeholderBackground = globalPlaceholderBackground,
   } = props;
 
-  const [isImageLoading, setImageLoading] = useState<boolean>(true);
   const [ref, containerWidth, containerHeight] =
-    useElementSizes<HTMLImageElement>();
+    useElementSizes<HTMLDivElement>();
+  const [isLoaded, setLoaded] = useState<boolean>(false);
 
   const searchParamsString = getURLParamsString({
     containerHeight,
@@ -38,34 +83,27 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
 
   const src = constructImageSource(imageSrc, searchParamsString);
 
-  const imageVisibility = isImageLoading ? 'hidden' : 'visible';
-
-  if (isImageLoading) {
-    console.log('Loading image: ' + src);
-  }
-
   return (
-    <>
-      <Placeholder
-        placeholderContent={placeholderBackground}
-        isResourceLoading={isImageLoading}
-        width={containerWidth}
-        height={containerHeight}
-      />
-      <img
+    <div ref={ref}>
+      {!isLoaded && (
+        <Placeholder
+          placeholderContent={placeholderBackground}
+          width={containerWidth}
+          height={containerHeight}
+        />
+      )}
+
+      <ImageWrapper
+        onLoad={() => {
+          setLoaded(true);
+        }}
         referrerPolicy={referrerPolicy}
         crossOrigin={crossOrigin}
-        className={className}
-        ref={ref}
         src={src}
-        style={{ ...style, visibility: imageVisibility }}
+        style={style}
         alt={alt ?? src}
-        loading={lazyLoading ? 'lazy' : 'eager'}
-        onLoad={() => {
-          setImageLoading(false);
-        }}
       />
-    </>
+    </div>
   );
 };
 

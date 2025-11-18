@@ -6,7 +6,7 @@ const LOADING_BACKGROUND_SRC = 'https://c.tenor.com/WX_LDjYUrMsAAAAC/tenor.gif';
 installCloudImage({
   baseUrl: 'https://samples.scaleflex.com/',
   customDomain: 'cloudimg.io',
-  lazyLoading: false,
+  lazyLoading: true,
   token: 'doc',
 });
 
@@ -16,7 +16,6 @@ export default function App() {
       <div style={styles.container}>
         <CloudImage
           src="hotel.jpg"
-          autoResize
           placeholderBackground={LOADING_BACKGROUND_SRC}
           operations={{
             function: 'bound',
@@ -35,11 +34,7 @@ export default function App() {
       <div style={styles.divider} />
 
       <div style={styles.container}>
-        <CloudImage
-          src="castle.jpg"
-          operations={'flip=v&func=cover'}
-          autoResize
-        />
+        <CloudImage src="castle.jpg" operations={'flip=v&func=cover'} />
       </div>
     </View>
   );

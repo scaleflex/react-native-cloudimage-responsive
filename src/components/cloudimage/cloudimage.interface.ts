@@ -1,5 +1,5 @@
-import { type CSSProperties } from 'react';
 import { type CoordinatesInterface } from '../../general.interface';
+import { type ImageStyle } from 'react-native';
 
 export interface PositionableCropInterface {
   topLeft?: CoordinatesInterface;
@@ -96,6 +96,16 @@ export type ReferrerPolicyType =
   | 'strict-origin-when-cross-origin'
   | 'unsafe-url';
 
+export type CommonHandlerType = () => void;
+export interface ImageWrapperPropsInterface {
+  src: string;
+  alt?: string;
+  referrerPolicy?: ReferrerPolicyType;
+  crossOrigin?: CrossOriginType;
+  style?: ImageStyle;
+  onLoad?: CommonHandlerType;
+}
+
 export interface CloudImagePropsInterface {
   src: string;
   alt?: string;
@@ -104,8 +114,7 @@ export interface CloudImagePropsInterface {
   limitFactor?: number;
   autoResize?: boolean;
   placeholderBackground?: string;
-  style?: CSSProperties;
-  className?: string;
+  style?: ImageStyle;
   operations?: OperationsPropertiesIntreface | string;
   watermarks?: WatermarksPropertiesIntreface | string; // TODO
   filters?: FiltersPropertiesIntreface | string; // TODO
