@@ -7,7 +7,28 @@ export interface PositionableCropInterface {
   center?: CoordinatesInterface;
 }
 
-export interface FiltersPropertiesIntreface {}
+export interface ColorOverlayInterface {
+  color: string;
+  opacity?: number;
+}
+
+export interface FaceBlurInterface {
+  enable: boolean;
+  radius?: number;
+  sigma?: number;
+}
+
+export interface FiltersPropertiesIntreface {
+  brightness?: number;
+  contrast?: number;
+  saturate?: number;
+  grayScale?: number;
+  colorOverlay?: ColorOverlayInterface;
+  pixelate?: number;
+  blur?: number;
+  sharpen?: number;
+  faceBlur?: FaceBlurInterface;
+}
 
 export interface WatermarksPropertiesIntreface {}
 
@@ -131,9 +152,11 @@ export interface FunctionCallerInterface {
   [index: string]: SetURLParamFunctionType<any>;
 }
 
-export type ConstructURLParamsFromOperationsFunctionType = (
-  operations: OperationsPropertiesIntreface | string
-) => string;
+export type ConstructURLParamStringFromPropsFunctionType = (props: {
+  operations: OperationsPropertiesIntreface | string;
+  watermarks: WatermarksPropertiesIntreface | string;
+  filters: FiltersPropertiesIntreface | string;
+}) => string;
 
 export type getURLParamsStringFunctionType = (
   props: GetURLParamsStringPropsInterface

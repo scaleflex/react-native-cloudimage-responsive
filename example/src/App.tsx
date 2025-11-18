@@ -17,6 +17,7 @@ export default function App() {
         <CloudImage
           src="hotel.jpg"
           placeholderBackground={LOADING_BACKGROUND_SRC}
+          filters={{ blur: 1, colorOverlay: { color: 'red' } }}
           operations={{
             function: 'bound',
             verticalFlip: true,

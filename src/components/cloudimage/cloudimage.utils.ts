@@ -1,6 +1,6 @@
 import {
   type getURLParamsStringFunctionType,
-  type ConstructURLParamsFromOperationsFunctionType,
+  type ConstructURLParamStringFromPropsFunctionType,
   type SetURLParamFunctionType,
   type FunctionCallerInterface,
   type ImageGravityType,
@@ -8,6 +8,8 @@ import {
   type PositionableCropInterface,
   type RadiusInterface,
   type AspectRatioInterface,
+  type ColorOverlayInterface,
+  type FaceBlurInterface,
 } from './cloudimage.interface';
 import { type CoordinatesInterface, type Pair } from '../../general.interface';
 import { config } from '../../general.utils';
@@ -29,6 +31,13 @@ export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   backgroundOpacity = 'bg_opacity',
   backgroundTintColor = 'bg_colorize', //bg_colourize
   backgorundGravity = 'bg_gravity',
+  brightness = 'bright',
+  contrast = 'contrast',
+  saturate = 'saturate',
+  grayScale = 'gray',
+  pixelate = 'pixelate',
+  blur = 'blur',
+  sharpen = 'sharp',
 }
 
 export const getRoundedSizes = (
@@ -201,6 +210,34 @@ const setFaceMarginURLParam: SetURLParamFunctionType<
   searchParams.set(searchParamName, searchParamValue);
 };
 
+const setColorOverlayParam: SetURLParamFunctionType<ColorOverlayInterface> = (
+  _key,
+  value,
+  searchParams
+) => {
+  const { opacity = 0.5, color } = value;
+
+  const searchParamName: string = 'colorize';
+  const searchParamValue: string = `${color},${opacity}`;
+
+  searchParams.set(searchParamName, searchParamValue);
+};
+
+const setFaceBlurParam: SetURLParamFunctionType<FaceBlurInterface> = (
+  _key,
+  value,
+  searchParams
+) => {
+  const { enable, radius = 30, sigma = 1000 } = value;
+
+  if (enable) {
+    const searchParamName: string = 'blur_faces';
+    const searchParamValue: string = `${1},${radius},${sigma}`;
+
+    searchParams.set(searchParamName, searchParamValue);
+  }
+};
+
 const setRadiusURLParam: SetURLParamFunctionType<number | RadiusInterface> = (
   _key,
   value,
@@ -294,31 +331,52 @@ const functionCaller: FunctionCallerInterface = {
   aspectRatio: setAspectRatioURLParam,
   backgroundGravity: setGenericURLParam,
   backgroundColor: setGenericURLParam,
+  brightness: setGenericURLParam,
+  contrast: setGenericURLParam,
+  saturate: setGenericURLParam,
+  grayScale: setGenericURLParam,
+  pixelate: setGenericURLParam,
+  blur: setGenericURLParam,
+  sharpen: setGenericURLParam,
+  faceBlur: setFaceBlurParam,
+  colorOverlay: setColorOverlayParam,
 };
 
-export const constructURLParamsFromOperations: ConstructURLParamsFromOperationsFunctionType =
-  (operations = '') => {
-    const searchParams = new URLSearchParams();
+const getStringFromProp = (prop: string | Object): string => {
+  const searchParams = new URLSearchParams();
 
-    if (typeof operations === 'string') {
-      return operations;
+  if (typeof prop === 'string') {
+    return prop;
+  }
+
+  for (let key of Object.keys(prop)) {
+    if (functionCaller[key] !== undefined) {
+      functionCaller[key](key, prop[key as keyof typeof prop], searchParams);
     }
+  }
 
-    for (let key of Object.keys(operations)) {
-      if (functionCaller[key] !== undefined) {
-        functionCaller[key](
-          key,
-          operations[key as keyof typeof operations],
-          searchParams
-        );
-      }
-    }
+  return searchParams.toString();
+};
 
-    return searchParams.toString();
+export const constructURLParamStringFromProps: ConstructURLParamStringFromPropsFunctionType =
+  (props) => {
+    const { operations, filters, watermarks } = props;
+
+    const operationsString: string = getStringFromProp(operations);
+    const filtersString: string = getStringFromProp(filters);
+    const watermarksString: string = getStringFromProp(watermarks);
+
+    return [operationsString, filtersString, watermarksString]
+      .filter((value) => {
+        return value !== '';
+      })
+      .join('&');
   };
 
 export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
   const {
+    filters = '',
+    watermarks = '',
     operations = '',
     containerHeight,
     containerWidth,
@@ -328,7 +386,11 @@ export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
 
   const { devicePixelRatioList } = config;
 
-  const urlParamsString = constructURLParamsFromOperations(operations);
+  const urlParamsString = constructURLParamStringFromProps({
+    operations,
+    filters,
+    watermarks,
+  });
 
   if (autoResize) {
     const [roundedWidth, roundedHeight] = getRoundedSizes(
