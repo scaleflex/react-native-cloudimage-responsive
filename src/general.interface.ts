@@ -13,7 +13,6 @@ export interface ConfigurationConfigInterface {
   limitFactor: number;
   lazyLoadOffset: number;
   lazyLoading: boolean;
-  delay: number;
   doNotReplaceURL: boolean;
   devicePixelRatioList: number[];
 }
@@ -26,7 +25,6 @@ export interface InstallPluginPropsInterface {
   limitFactor?: number;
   lazyLoadOffset?: number;
   lazyLoading?: boolean;
-  delay?: number;
   doNotReplaceURL?: boolean;
   devicePixelRatioList?: number[];
 }

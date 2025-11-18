@@ -30,7 +30,59 @@ export interface FiltersPropertiesIntreface {
   faceBlur?: FaceBlurInterface;
 }
 
-export interface WatermarksPropertiesIntreface {}
+export type WatermarkGravityType =
+  | 'north'
+  | 'northwest'
+  | 'northeast'
+  | 'south'
+  | 'southwest'
+  | 'southeast'
+  | 'east'
+  | 'west'
+  | 'absolute'
+  | 'realtive'
+  | 'center';
+
+export interface WatermarkScaleInterface {
+  scaleValue: number;
+  scaleType?: 'pixles' | 'percentage';
+}
+
+export interface WatermarkPaddingInterface {
+  x: number;
+  y?: number;
+  xType?: 'pixles' | 'percentage';
+  yType?: 'pixles' | 'percentage';
+}
+
+export interface WatermarkPositionInterface {
+  x: number;
+  y?: number;
+}
+
+export interface WatermarkFontSizeInterface {
+  size: number;
+  max?: boolean;
+}
+
+export interface WatermarkPropertiesIntreface {
+  addWatermark?: boolean;
+  opacity?: number;
+  url?: string;
+  text?: string;
+  font?: string;
+  textColor?: string;
+  watermarkGravity?: WatermarkGravityType;
+  watermarkPadding?: WatermarkPaddingInterface;
+  position?: WatermarkPositionInterface;
+  scale?: WatermarkScaleInterface;
+  fontSize?: WatermarkFontSizeInterface;
+}
+
+export interface WatermarksPropertiesIntreface
+  extends WatermarkPropertiesIntreface {
+  multipleWatermarks?: WatermarkPropertiesIntreface[];
+}
 
 export interface OperationsPropertiesIntreface {
   width?: number;
@@ -137,8 +189,8 @@ export interface CloudImagePropsInterface {
   placeholderBackground?: string;
   style?: ImageStyle;
   operations?: OperationsPropertiesIntreface | string;
-  watermarks?: WatermarksPropertiesIntreface | string; // TODO
-  filters?: FiltersPropertiesIntreface | string; // TODO
+  watermarks?: WatermarksPropertiesIntreface | string;
+  filters?: FiltersPropertiesIntreface | string;
 }
 
 export interface GetURLParamsStringPropsInterface
@@ -165,5 +217,6 @@ export type getURLParamsStringFunctionType = (
 export type SetURLParamFunctionType<Type> = (
   key: string,
   value: Type,
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams,
+  postfix?: string
 ) => void;

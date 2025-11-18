@@ -18,6 +18,14 @@ export default function App() {
           src="hotel.jpg"
           placeholderBackground={LOADING_BACKGROUND_SRC}
           filters={{ blur: 1, colorOverlay: { color: 'red' } }}
+          watermarks={{
+            addWatermark: true,
+            text: 'global',
+            multipleWatermarks: [
+              { addWatermark: true, text: 'first' },
+              { addWatermark: true, text: 'second' },
+            ],
+          }}
           operations={{
             function: 'bound',
             verticalFlip: true,

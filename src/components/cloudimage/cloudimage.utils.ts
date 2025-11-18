@@ -10,6 +10,10 @@ import {
   type AspectRatioInterface,
   type ColorOverlayInterface,
   type FaceBlurInterface,
+  type WatermarkPaddingInterface,
+  type WatermarkScaleInterface,
+  type WatermarkPositionInterface,
+  type WatermarkFontSizeInterface,
 } from './cloudimage.interface';
 import { type CoordinatesInterface, type Pair } from '../../general.interface';
 import { config } from '../../general.utils';
@@ -38,6 +42,13 @@ export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   pixelate = 'pixelate',
   blur = 'blur',
   sharpen = 'sharp',
+  opacity = 'wat_opacity',
+  url = 'wat_url',
+  text = 'wat_text',
+  font = 'wat_font',
+  textColor = 'wat_color', //wat_colour
+  addWatermark = 'wat',
+  watermarkGravity = 'wat_gravity',
 }
 
 export const getRoundedSizes = (
@@ -54,12 +65,13 @@ export const getRoundedSizes = (
 const setGenericURLParam: SetURLParamFunctionType<any> = (
   key,
   value,
-  searchParams
+  searchParams,
+  postfix = ''
 ) => {
   const searchParamName: string =
     COMPONENT_TO_SEARCHPARAM_TABLE[
       key as keyof typeof COMPONENT_TO_SEARCHPARAM_TABLE
-    ];
+    ] + postfix;
   let searchParamValue: string = '';
 
   switch (typeof value) {
@@ -307,6 +319,74 @@ const setAspectRatioURLParam: SetURLParamFunctionType<AspectRatioInterface> = (
   searchParams.set(searchParamName, searchParamValue);
 };
 
+const setWatermarkPaddingURLParam: SetURLParamFunctionType<
+  WatermarkPaddingInterface
+> = (_key, value, searchParams) => {
+  const { x, xType, y, yType } = value;
+
+  const searchParamName: string = 'wat_pad';
+  let searchParamValue: string = x.toString();
+
+  if (xType === 'percentage') {
+    searchParamValue += 'p';
+  }
+
+  if (typeof y !== 'undefined') {
+    searchParamValue += ',' + y.toString();
+
+    if (yType === 'percentage') {
+      searchParamValue += 'p';
+    }
+  }
+
+  searchParams.set(searchParamName, searchParamValue);
+};
+
+const setWatermarkScaleURLParam: SetURLParamFunctionType<
+  WatermarkScaleInterface
+> = (_key, value, searchParams) => {
+  const { scaleValue, scaleType } = value;
+
+  const searchParamName: string = 'wat_scale';
+  let searchParamValue: string = scaleValue.toString();
+
+  if (scaleType === 'percentage') {
+    searchParamValue += 'p';
+  }
+
+  searchParams.set(searchParamName, searchParamValue);
+};
+
+const setWatermarkPositionURLParam: SetURLParamFunctionType<
+  WatermarkPositionInterface
+> = (_key, value, searchParams) => {
+  const { x, y } = value;
+
+  const searchParamName: string = 'wat_pos';
+  let searchParamValue: string = x.toString();
+
+  if (typeof y !== 'undefined') {
+    searchParamValue += ',' + y.toString();
+  }
+
+  searchParams.set(searchParamName, searchParamValue);
+};
+
+const setWatermarkFontSizeURLParam: SetURLParamFunctionType<
+  WatermarkFontSizeInterface
+> = (_key, value, searchParams) => {
+  const { size, max } = value;
+
+  const searchParamName: string = 'wat_fontsize';
+  let searchParamValue: string = size.toString();
+
+  if (max) {
+    searchParamValue += 'max';
+  }
+
+  searchParams.set(searchParamName, searchParamValue);
+};
+
 const functionCaller: FunctionCallerInterface = {
   width: setGenericURLParam,
   height: setGenericURLParam,
@@ -340,9 +420,19 @@ const functionCaller: FunctionCallerInterface = {
   sharpen: setGenericURLParam,
   faceBlur: setFaceBlurParam,
   colorOverlay: setColorOverlayParam,
+  url: setGenericURLParam,
+  text: setGenericURLParam,
+  font: setGenericURLParam,
+  textColor: setGenericURLParam,
+  addWatermark: setGenericURLParam,
+  watermarkGravity: setGenericURLParam,
+  watermarkPadding: setWatermarkPaddingURLParam,
+  scale: setWatermarkScaleURLParam,
+  positon: setWatermarkPositionURLParam,
+  fontSize: setWatermarkFontSizeURLParam,
 };
 
-const getStringFromProp = (prop: string | Object): string => {
+const getStringFromProp = (prop: string | Object, postfix?: string): string => {
   const searchParams = new URLSearchParams();
 
   if (typeof prop === 'string') {
@@ -351,7 +441,12 @@ const getStringFromProp = (prop: string | Object): string => {
 
   for (let key of Object.keys(prop)) {
     if (functionCaller[key] !== undefined) {
-      functionCaller[key](key, prop[key as keyof typeof prop], searchParams);
+      functionCaller[key](
+        key,
+        prop[key as keyof typeof prop],
+        searchParams,
+        postfix
+      );
     }
   }
 
@@ -361,12 +456,21 @@ const getStringFromProp = (prop: string | Object): string => {
 export const constructURLParamStringFromProps: ConstructURLParamStringFromPropsFunctionType =
   (props) => {
     const { operations, filters, watermarks } = props;
+    const result: string[] = [];
 
-    const operationsString: string = getStringFromProp(operations);
-    const filtersString: string = getStringFromProp(filters);
-    const watermarksString: string = getStringFromProp(watermarks);
+    result.push(getStringFromProp(operations));
+    result.push(getStringFromProp(filters));
+    result.push(getStringFromProp(watermarks));
 
-    return [operationsString, filtersString, watermarksString]
+    if (typeof watermarks === 'object') {
+      let index: number = 1;
+      for (let watermark of watermarks.multipleWatermarks ?? []) {
+        result.push(getStringFromProp(watermark, `[${index}]`));
+        ++index;
+      }
+    }
+
+    return result
       .filter((value) => {
         return value !== '';
       })

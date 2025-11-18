@@ -38,7 +38,7 @@ export default function useElementSizes<T extends Element = HTMLDivElement>(): [
       observer.unobserve(element);
       observer.disconnect();
     };
-  }, []);
+  }, [window, ref]);
 
   return [ref, width, height];
 }

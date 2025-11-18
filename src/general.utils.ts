@@ -5,13 +5,12 @@ import {
 
 export let config: ConfigurationConfigInterface = {
   token: 'demo',
-  placeholderBackground: '#f4f4f4', //TODO
+  placeholderBackground: '#f4f4f4',
   customDomain: 'cloudimage.io',
   baseUrl: '/',
   limitFactor: 100,
   lazyLoadOffset: 100, //TODO
   lazyLoading: true, //TODO
-  delay: 0, //TODO ?
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };
