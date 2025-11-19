@@ -1,7 +1,7 @@
 {
   "name": "react-native-cloudimage-plugin",
   "version": "0.1.0",
-  "description": "TODO",
+  "description": "React native plugin for cloudimage.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
   "exports": {
@@ -32,8 +32,6 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace react-native-cloudimage-plugin-example",
-    "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli lib",
