@@ -9,8 +9,7 @@ export let config: ConfigurationConfigInterface = {
   customDomain: 'cloudimage.io',
   baseUrl: '/',
   limitFactor: 100,
-  lazyLoadOffset: 100, //TODO
-  lazyLoading: true, //TODO
+  lazyLoading: true,
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };

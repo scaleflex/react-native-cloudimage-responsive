@@ -3,10 +3,10 @@ import {
   type ImageWrapperPropsInterface,
 } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
-import useElementSizes from '../../hooks/use-element-sizes';
+import useElementObserver from '../../hooks/use-element-observer';
 import { getURLParamsString } from './cloudimage.utils';
 import { useEffect, useState, type FC } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import Placeholder from '../placeholder/placeholder';
 
 const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
@@ -57,7 +57,7 @@ const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const {
     limitFactor: globalLimitFactor,
-    //lazyLoading,
+    lazyLoading,
     placeholderBackground: globalPlaceholderBackground,
   } = config;
 
@@ -70,8 +70,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     placeholderBackground = globalPlaceholderBackground,
   } = props;
 
-  const [ref, containerWidth, containerHeight] =
-    useElementSizes<HTMLDivElement>();
+  const [ref, containerWidth, containerHeight, isVisible] =
+    useElementObserver<any>(); //TODO: get rid of any
   const [isLoaded, setLoaded] = useState<boolean>(false);
 
   const searchParamsString = getURLParamsString({
@@ -82,9 +82,10 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   });
 
   const src = constructImageSource(imageSrc, searchParamsString);
+  const shouldLoadImage = isVisible || !lazyLoading;
 
   return (
-    <div ref={ref}>
+    <View ref={ref}>
       {!isLoaded && (
         <Placeholder
           placeholderContent={placeholderBackground}
@@ -93,17 +94,19 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
         />
       )}
 
-      <ImageWrapper
-        onLoad={() => {
-          setLoaded(true);
-        }}
-        referrerPolicy={referrerPolicy}
-        crossOrigin={crossOrigin}
-        src={src}
-        style={style}
-        alt={alt ?? src}
-      />
-    </div>
+      {shouldLoadImage && (
+        <ImageWrapper
+          onLoad={() => {
+            setLoaded(true);
+          }}
+          referrerPolicy={referrerPolicy}
+          crossOrigin={crossOrigin}
+          src={src}
+          style={style}
+          alt={alt ?? src}
+        />
+      )}
+    </View>
   );
 };
 

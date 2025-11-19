@@ -11,7 +11,6 @@ export interface ConfigurationConfigInterface {
   customDomain: string;
   baseUrl: string;
   limitFactor: number;
-  lazyLoadOffset: number;
   lazyLoading: boolean;
   doNotReplaceURL: boolean;
   devicePixelRatioList: number[];
