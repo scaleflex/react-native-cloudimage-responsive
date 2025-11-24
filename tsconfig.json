@@ -2,7 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "react-native-cloudimage-plugin": ["./src/index"]
+      "react-native-cloudimage-responsive": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

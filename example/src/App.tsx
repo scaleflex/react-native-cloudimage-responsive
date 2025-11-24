@@ -1,5 +1,8 @@
 import { StyleSheet, View } from 'react-native';
-import { installCloudImage, CloudImage } from 'react-native-cloudimage-plugin';
+import {
+  installCloudImage,
+  CloudImage,
+} from 'react-native-cloudimage-responsive';
 
 const LOADING_BACKGROUND_SRC = 'https://c.tenor.com/WX_LDjYUrMsAAAAC/tenor.gif';
 
