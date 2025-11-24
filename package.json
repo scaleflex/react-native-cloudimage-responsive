@@ -13,12 +13,7 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "src",
-    "lib",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__",
-    "!**/.*"
+    "lib"
   ],
   "scripts": {
     "typecheck": "tsc",
@@ -78,8 +73,7 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
+      "commit": false
     },
     "npm": {
       "publish": true
