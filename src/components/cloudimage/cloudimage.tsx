@@ -1,58 +1,11 @@
-import {
-  type CloudImagePropsInterface,
-  type ImageWrapperPropsInterface,
-} from './cloudimage.interface';
+import { type CloudImagePropsInterface } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
 import useElementObserver from '../../hooks/use-element-observer';
 import { getURLParamsString } from './cloudimage.utils';
-import { useEffect, useState, type FC } from 'react';
-import { Image, View } from 'react-native';
+import { useState, type FC } from 'react';
+import { View } from 'react-native';
 import Placeholder from '../placeholder/placeholder';
-
-const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
-  const {
-    src,
-    referrerPolicy,
-    crossOrigin,
-    style,
-    alt,
-    onLoad = () => {},
-  } = props;
-
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
-
-  useEffect(() => {
-    Image.getSize(
-      src,
-      (imageWidth, imageHeight) => {
-        setHeight(imageHeight);
-        setWidth(imageWidth);
-      },
-      (error) => {
-        throw new Error(`Error getting image size: ${error}`);
-      }
-    );
-  }, [src]);
-
-  if (width === 0 || height === 0) {
-    return;
-  }
-
-  return (
-    <Image
-      referrerPolicy={referrerPolicy}
-      crossOrigin={crossOrigin}
-      source={{ uri: src, width, height }}
-      onLoad={() => {
-        onLoad();
-        console.log(src);
-      }}
-      style={style}
-      alt={alt ?? src}
-    />
-  );
-};
+import ImageWrapper from './image-wrapper';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const {
