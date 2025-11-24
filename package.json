@@ -15,17 +15,6 @@
   "files": [
     "src",
     "lib",
-    "android",
-    "ios",
-    "cpp",
-    "*.podspec",
-    "react-native.config.js",
-    "!ios/build",
-    "!android/build",
-    "!android/gradle",
-    "!android/gradlew",
-    "!android/gradlew.bat",
-    "!android/local.properties",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__",
@@ -39,23 +28,10 @@
     "release": "release-it --only-version"
   },
   "keywords": [
-    "react-native",
-    "ios",
-    "android"
+    "react-native"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ltins/react-native-cloudimage-plugin.git"
-  },
   "author": "Ltins <ltinser@gmail.com> (https://github.com/Ltins)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Ltins/react-native-cloudimage-plugin/issues"
-  },
-  "homepage": "https://github.com/Ltins/react-native-cloudimage-plugin#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/compat": "^1.3.2",
@@ -109,14 +85,7 @@
       "publish": true
     },
     "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": {
-          "name": "angular"
-        }
-      }
+      "release": false
     }
   },
   "prettier": {
