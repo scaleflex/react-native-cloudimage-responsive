@@ -32,15 +32,13 @@ const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
     return;
   }
 
-  const finalStyle = { ...style, width, height };
-
   return (
     <Image
       referrerPolicy={referrerPolicy}
       crossOrigin={crossOrigin}
       source={{ uri: src, width, height }}
       onLoad={onLoad}
-      style={finalStyle}
+      style={style}
       alt={alt ?? src}
     />
   );

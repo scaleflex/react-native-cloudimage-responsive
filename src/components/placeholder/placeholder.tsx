@@ -1,20 +1,13 @@
 import { type PlaceholderPropsInterface } from './placeholder.interface';
 import { type FC } from 'react';
-import { View } from 'react-native';
-import { Image } from 'react-native';
+import { View, Image } from 'react-native';
 
 const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
   const { width, height, placeholderContent } = props;
 
   try {
     new URL(placeholderContent);
-    return (
-      <Image
-        source={{ uri: placeholderContent }}
-        width={width}
-        height={height}
-      />
-    );
+    return <Image source={{ uri: placeholderContent, width, height }} />;
   } catch (e) {}
 
   return (
