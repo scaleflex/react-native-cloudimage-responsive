@@ -1,11 +1,11 @@
 import { type CloudImagePropsInterface } from './cloudimage.interface';
 import { constructImageSource, config } from '../../general.utils';
-import useElementObserver from '../../hooks/use-element-observer';
 import { getURLParamsString } from './cloudimage.utils';
 import { useState, type FC } from 'react';
-import { View } from 'react-native';
+import { View, type LayoutChangeEvent } from 'react-native';
 import Placeholder from '../placeholder/placeholder';
 import ImageWrapper from './image-wrapper';
+import { styles } from './cloudimage.styles';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const {
@@ -23,9 +23,9 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     placeholderBackground = globalPlaceholderBackground,
   } = props;
 
-  const [ref, containerWidth, containerHeight, isVisible] =
-    useElementObserver<any>(); //TODO: get rid of any
   const [isLoaded, setLoaded] = useState<boolean>(false);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
+  const [containerHeight, setContainerHeight] = useState<number>(0);
 
   const searchParamsString = getURLParamsString({
     containerHeight,
@@ -35,10 +35,18 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   });
 
   const src = constructImageSource(imageSrc, searchParamsString);
+  const isVisible = true; //TODO
   const shouldLoadImage = isVisible || !lazyLoading;
 
+  const handleLayoutChange = (event: LayoutChangeEvent): void => {
+    const { width, height } = event.nativeEvent.layout;
+
+    setContainerHeight(height);
+    setContainerWidth(width);
+  };
+
   return (
-    <View ref={ref}>
+    <View onLayout={handleLayoutChange} style={styles.imageContainer}>
       {!isLoaded && (
         <Placeholder
           placeholderContent={placeholderBackground}
