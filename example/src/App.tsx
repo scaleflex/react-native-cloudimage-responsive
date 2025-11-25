@@ -16,7 +16,7 @@ installCloudImage({
 export default function App() {
   return (
     <View style={styles.view}>
-      <div style={styles.container}>
+      <View style={styles.container}>
         <CloudImage
           src="hotel.jpg"
           placeholderBackground={LOADING_BACKGROUND_SRC}
@@ -41,13 +41,13 @@ export default function App() {
             backgroundColor: 'cccc30',
           }}
         />
-      </div>
+      </View>
 
-      <div style={styles.divider} />
+      <View style={styles.divider} />
 
-      <div style={styles.container}>
+      <View style={styles.container}>
         <CloudImage src="castle.jpg" operations={'flip=v&func=cover'} />
-      </div>
+      </View>
     </View>
   );
 }
