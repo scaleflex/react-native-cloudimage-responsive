@@ -1,5 +1,6 @@
 import { type PlaceholderPropsInterface } from './placeholder.interface';
 import { type FC } from 'react';
+import { View } from 'react-native';
 
 const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
   const { width, height, placeholderContent } = props;
@@ -10,7 +11,7 @@ const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
   } catch (e) {}
 
   return (
-    <div
+    <View
       style={{
         minWidth: width,
         minHeight: height,

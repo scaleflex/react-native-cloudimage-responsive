@@ -17,6 +17,7 @@ import {
 } from './cloudimage.interface';
 import { type CoordinatesInterface, type Pair } from '../../general.interface';
 import { config } from '../../general.utils';
+import { PixelRatio } from 'react-native';
 
 export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   width = 'w',
@@ -503,11 +504,9 @@ export const getURLParamsString: getURLParamsStringFunctionType = (props) => {
       limitFactor
     );
 
-    const isDeviceSupported = devicePixelRatioList.includes(
-      window.devicePixelRatio
-    );
+    const isDeviceSupported = devicePixelRatioList.includes(PixelRatio.get());
 
-    const devicePixelRatio = isDeviceSupported ? window.devicePixelRatio : 1;
+    const devicePixelRatio = isDeviceSupported ? PixelRatio.get() : 1;
 
     return `w=${roundedWidth}&h=${roundedHeight}&${urlParamsString}&dpr=${devicePixelRatio}`;
   }
