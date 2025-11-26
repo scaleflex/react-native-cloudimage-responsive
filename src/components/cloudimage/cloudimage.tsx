@@ -35,8 +35,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   });
 
   const src = constructImageSource(imageSrc, searchParamsString);
-  const isVisible = true; //TODO
-  const shouldLoadImage = isVisible || !lazyLoading;
+  const isContainerValid = containerWidth * containerHeight > 0;
+  const shouldLoadImage = isContainerValid || !lazyLoading;
 
   const handleLayoutChange = (event: LayoutChangeEvent): void => {
     const { width, height } = event.nativeEvent.layout;

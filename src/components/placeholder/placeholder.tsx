@@ -7,7 +7,12 @@ const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
 
   try {
     new URL(placeholderContent);
-    return <Image source={{ uri: placeholderContent, width, height }} />;
+    return (
+      <Image
+        source={{ uri: placeholderContent, width, height }}
+        style={{ width, height }}
+      />
+    );
   } catch (e) {}
 
   return (

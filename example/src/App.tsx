@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import {
   installCloudImage,
   CloudImage,
@@ -15,7 +15,7 @@ installCloudImage({
 
 export default function App() {
   return (
-    <View style={styles.view}>
+    <ScrollView contentContainerStyle={styles.view}>
       <View style={styles.container}>
         <CloudImage
           src="hotel.jpg"
@@ -48,17 +48,15 @@ export default function App() {
       <View style={styles.container}>
         <CloudImage src="castle.jpg" operations={'flip=v&func=cover'} />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: 2000,
   },
 
   container: {
