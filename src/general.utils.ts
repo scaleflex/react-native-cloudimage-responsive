@@ -6,7 +6,7 @@ import {
 export let config: ConfigurationConfigInterface = {
   token: 'demo',
   placeholderBackground: '#f4f4f4',
-  customDomain: 'cloudimage.io',
+  domain: 'cloudimage.io',
   baseUrl: '/',
   limitFactor: 100,
   lazyLoading: true,
@@ -18,13 +18,13 @@ export const constructImageSource = (
   src: string,
   searchParamsString: string = ''
 ) => {
-  const { customDomain, token, baseUrl, doNotReplaceURL } = config;
+  const { domain, token, baseUrl, doNotReplaceURL } = config;
 
   if (doNotReplaceURL) {
     return `${src}?${searchParamsString}`;
   }
 
-  const url = new URL(`https://${token}.${customDomain}/${baseUrl}${src}`);
+  const url = new URL(`https://${token}.${domain}/${baseUrl}${src}`);
 
   return `${url.toString()}?${searchParamsString}`;
 };

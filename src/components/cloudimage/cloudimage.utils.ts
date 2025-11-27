@@ -3,14 +3,14 @@ import {
   type ConstructURLParamStringFromPropsFunctionType,
   type SetURLParamFunctionType,
   type FunctionCallerInterface,
-  type ImageGravityType,
+  type OperationImageGravityType,
   type FocalPointInterface,
-  type PositionableCropInterface,
-  type RadiusInterface,
-  type AspectRatioInterface,
+  type OperationImagePositionableCropInterface,
+  type OperationRadiusInterface,
+  type OperationAspectRatioInterface,
   type ColorOverlayInterface,
-  type FaceBlurInterface,
-  type WatermarkPaddingInterface,
+  type FilterFaceBlurInterface,
+  type PaddingInterface,
   type WatermarkScaleInterface,
   type WatermarkPositionInterface,
   type WatermarkFontSizeInterface,
@@ -35,7 +35,7 @@ export enum COMPONENT_TO_SEARCHPARAM_TABLE {
   blurBackgroundValue = 'bg_blur',
   backgroundOpacity = 'bg_opacity',
   backgroundTintColor = 'bg_colorize', //bg_colourize
-  backgorundGravity = 'bg_gravity',
+  backgroundGravity = 'bg_gravity',
   brightness = 'bright',
   contrast = 'contrast',
   saturate = 'saturate',
@@ -149,11 +149,9 @@ const setDevicePixelRatioURLParam: SetURLParamFunctionType<number> = (
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setGravityURLParam: SetURLParamFunctionType<ImageGravityType> = (
-  _key,
-  value,
-  searchParams
-) => {
+const setOperationGravityURLParam: SetURLParamFunctionType<
+  OperationImageGravityType
+> = (_key, value, searchParams) => {
   const searchParamName: string = 'gravity';
   let searchParamValue: string = '';
 
@@ -186,7 +184,7 @@ const setGravityURLParam: SetURLParamFunctionType<ImageGravityType> = (
 };
 
 const setPositionableCropURLParam: SetURLParamFunctionType<
-  PositionableCropInterface
+  OperationImagePositionableCropInterface
 > = (_key, value, searchParams) => {
   if (value.bottomRight) {
     const searchParamName: string = 'br_px';
@@ -236,7 +234,7 @@ const setColorOverlayParam: SetURLParamFunctionType<ColorOverlayInterface> = (
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setFaceBlurParam: SetURLParamFunctionType<FaceBlurInterface> = (
+const setFaceBlurParam: SetURLParamFunctionType<FilterFaceBlurInterface> = (
   _key,
   value,
   searchParams
@@ -251,11 +249,9 @@ const setFaceBlurParam: SetURLParamFunctionType<FaceBlurInterface> = (
   }
 };
 
-const setRadiusURLParam: SetURLParamFunctionType<number | RadiusInterface> = (
-  _key,
-  value,
-  searchParams
-) => {
+const setRadiusURLParam: SetURLParamFunctionType<
+  number | OperationRadiusInterface
+> = (_key, value, searchParams) => {
   const searchParamName: string = 'radius';
   let searchParamValue: string = '';
 
@@ -293,11 +289,9 @@ const setRadiusURLParam: SetURLParamFunctionType<number | RadiusInterface> = (
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setAspectRatioURLParam: SetURLParamFunctionType<AspectRatioInterface> = (
-  _key,
-  value,
-  searchParams
-) => {
+const setAspectRatioURLParam: SetURLParamFunctionType<
+  OperationAspectRatioInterface
+> = (_key, value, searchParams) => {
   const searchParamName: string = 'aspect_ratio';
   let searchParamValue: string = '';
 
@@ -320,9 +314,11 @@ const setAspectRatioURLParam: SetURLParamFunctionType<AspectRatioInterface> = (
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setWatermarkPaddingURLParam: SetURLParamFunctionType<
-  WatermarkPaddingInterface
-> = (_key, value, searchParams) => {
+const setPaddingURLParam: SetURLParamFunctionType<PaddingInterface> = (
+  _key,
+  value,
+  searchParams
+) => {
   const { x, xType, y, yType } = value;
 
   const searchParamName: string = 'wat_pad';
@@ -405,7 +401,7 @@ const functionCaller: FunctionCallerInterface = {
   horizontalFlip: setFlipURLParam,
   verticalFlip: setFlipURLParam,
   devicePixelRatio: setDevicePixelRatioURLParam,
-  gravity: setGravityURLParam,
+  operationGravity: setOperationGravityURLParam,
   positionableCrop: setPositionableCropURLParam,
   faceMargin: setFaceMarginURLParam,
   radius: setRadiusURLParam,
@@ -427,7 +423,7 @@ const functionCaller: FunctionCallerInterface = {
   textColor: setGenericURLParam,
   addWatermark: setGenericURLParam,
   watermarkGravity: setGenericURLParam,
-  watermarkPadding: setWatermarkPaddingURLParam,
+  padding: setPaddingURLParam,
   scale: setWatermarkScaleURLParam,
   positon: setWatermarkPositionURLParam,
   fontSize: setWatermarkFontSizeURLParam,

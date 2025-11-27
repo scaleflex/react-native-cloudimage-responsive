@@ -8,7 +8,7 @@ const LOADING_BACKGROUND_SRC = 'https://c.tenor.com/WX_LDjYUrMsAAAAC/tenor.gif';
 
 installCloudImage({
   baseUrl: 'https://samples.scaleflex.com/',
-  customDomain: 'cloudimg.io',
+  domain: 'cloudimg.io',
   lazyLoading: true,
   token: 'doc',
 });

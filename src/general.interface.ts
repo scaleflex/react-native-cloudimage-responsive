@@ -8,7 +8,7 @@ export type Pair<Type1, Type2> = [Type1, Type2];
 export interface ConfigurationConfigInterface {
   token: string;
   placeholderBackground: string;
-  customDomain: string;
+  domain: string;
   baseUrl: string;
   limitFactor: number;
   lazyLoading: boolean;
@@ -19,7 +19,7 @@ export interface ConfigurationConfigInterface {
 export interface InstallPluginPropsInterface {
   token?: string;
   placeholderBackground?: string;
-  customDomain?: string;
+  domain?: string;
   baseUrl?: string;
   limitFactor?: number;
   lazyLoadOffset?: number;
