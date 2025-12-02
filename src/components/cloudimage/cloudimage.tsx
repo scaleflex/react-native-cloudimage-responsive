@@ -34,7 +34,6 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log('oleg');
       const { height: windowHeight, width: windowWidth } =
         Dimensions.get('window');
 
