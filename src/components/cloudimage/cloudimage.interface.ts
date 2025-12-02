@@ -184,7 +184,6 @@ export interface CloudImagePropsInterface {
   referrerPolicy?: ReferrerPolicyType;
   crossOrigin?: CrossOriginType;
   limitFactor?: number;
-  lazyInterval?: number;
   autoResize?: boolean;
   placeholderBackground?: string;
   style?: ImageStyle;

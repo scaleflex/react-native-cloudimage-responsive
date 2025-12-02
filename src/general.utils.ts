@@ -11,6 +11,7 @@ export let config: ConfigurationConfigInterface = {
   limitFactor: 100,
   lazyLoading: true,
   lazyInterval: 1000,
+  lazyTreeshold: 50,
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };

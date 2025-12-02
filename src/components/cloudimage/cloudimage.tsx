@@ -13,7 +13,8 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     limitFactor: globalLimitFactor,
     lazyLoading,
     placeholderBackground: globalPlaceholderBackground,
-    lazyInterval: globalLazyInterval,
+    lazyInterval,
+    lazyTreeshold,
   } = config;
 
   const {
@@ -23,7 +24,6 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     referrerPolicy = 'strict-origin-when-cross-origin',
     crossOrigin = 'anonymous',
     placeholderBackground = globalPlaceholderBackground,
-    lazyInterval = globalLazyInterval,
   } = props;
 
   const [isLoaded, setLoaded] = useState<boolean>(false);
@@ -46,16 +46,15 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
           pageX: number,
           pageY: number
         ) => {
-          const rectTop = pageY;
-          const rectBottom = pageY + height;
-          const rectWidth = pageX + width;
+          const rectTop = pageY - lazyTreeshold;
+          const rectBottom = pageY + height + lazyTreeshold;
+          const rectWidth = pageX + width + lazyTreeshold;
 
           const isRectVisible =
-            rectBottom !== 0 &&
-            rectTop >= 0 &&
-            rectBottom <= windowHeight &&
+            rectBottom >= 0 &&
+            rectTop <= windowHeight &&
             rectWidth > 0 &&
-            rectWidth <= windowWidth;
+            rectWidth <= windowWidth + 2 * lazyTreeshold;
 
           if (isRectVisible) {
             setVisibility(true);
@@ -68,7 +67,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [lazyInterval]);
+  }, [lazyInterval, lazyTreeshold]);
 
   const searchParamsString = getURLParamsString({
     containerHeight,

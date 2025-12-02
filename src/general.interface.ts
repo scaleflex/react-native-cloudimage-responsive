@@ -6,6 +6,7 @@ export interface CoordinatesInterface {
 export type Pair<Type1, Type2> = [Type1, Type2];
 
 export interface ConfigurationConfigInterface {
+  lazyTreeshold: number;
   token: string;
   placeholderBackground: string;
   domain: string;
@@ -18,6 +19,7 @@ export interface ConfigurationConfigInterface {
 }
 
 export interface InstallPluginPropsInterface {
+  lazyTreeshold?: number;
   token?: string;
   placeholderBackground?: string;
   domain?: string;
