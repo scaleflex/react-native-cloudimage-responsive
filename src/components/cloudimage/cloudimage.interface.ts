@@ -79,8 +79,7 @@ export interface WatermarkPropertiesIntreface {
   fontSize?: WatermarkFontSizeInterface;
 }
 
-export interface WatermarksPropertiesIntreface
-  extends WatermarkPropertiesIntreface {
+export interface WatermarksPropertiesIntreface extends WatermarkPropertiesIntreface {
   multipleWatermarks?: WatermarkPropertiesIntreface[];
 }
 
@@ -185,6 +184,7 @@ export interface CloudImagePropsInterface {
   referrerPolicy?: ReferrerPolicyType;
   crossOrigin?: CrossOriginType;
   limitFactor?: number;
+  lazyInterval?: number;
   autoResize?: boolean;
   placeholderBackground?: string;
   style?: ImageStyle;
@@ -193,8 +193,7 @@ export interface CloudImagePropsInterface {
   filters?: FiltersPropertiesIntreface | string;
 }
 
-export interface GetURLParamsStringPropsInterface
-  extends CloudImagePropsInterface {
+export interface GetURLParamsStringPropsInterface extends CloudImagePropsInterface {
   containerHeight: number;
   containerWidth: number;
   limitFactor: number;

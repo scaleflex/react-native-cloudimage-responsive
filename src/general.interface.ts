@@ -12,6 +12,7 @@ export interface ConfigurationConfigInterface {
   baseUrl: string;
   limitFactor: number;
   lazyLoading: boolean;
+  lazyInterval: number;
   doNotReplaceURL: boolean;
   devicePixelRatioList: number[];
 }
@@ -22,11 +23,13 @@ export interface InstallPluginPropsInterface {
   domain?: string;
   baseUrl?: string;
   limitFactor?: number;
+  lazyInterval?: number;
   lazyLoadOffset?: number;
   lazyLoading?: boolean;
   doNotReplaceURL?: boolean;
   devicePixelRatioList?: number[];
 }
 
-export type InstallPluginFunctionType =
-  ({}: InstallPluginPropsInterface) => void;
+export type InstallPluginFunctionType = (
+  props: InstallPluginPropsInterface
+) => void;

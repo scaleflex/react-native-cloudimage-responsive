@@ -6,13 +6,15 @@ const Placeholder: FC<PlaceholderPropsInterface> = (props) => {
   const { width, height, placeholderContent } = props;
 
   try {
-    new URL(placeholderContent);
+    const contentURL = new URL(placeholderContent);
+
     return (
       <Image
-        source={{ uri: placeholderContent, width, height }}
+        source={{ uri: contentURL.toString(), width, height }}
         style={{ width, height }}
       />
     );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {}
 
   return (

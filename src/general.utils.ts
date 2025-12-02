@@ -10,6 +10,7 @@ export let config: ConfigurationConfigInterface = {
   baseUrl: '/',
   limitFactor: 100,
   lazyLoading: true,
+  lazyInterval: 1000,
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };
