@@ -11,7 +11,7 @@ setPluginConfig({
   domain: 'cloudimg.io',
   lazyLoading: true,
   lazyInterval: 200,
-  lazyTreeshold: 100,
+  lazyThreshold: 100,
   token: 'doc',
 });
 
