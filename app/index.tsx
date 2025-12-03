@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet, View } from 'react-native';
 import {
   CloudImage,
-  installCloudImage,
+  setPluginConfig,
 } from 'react-native-cloudimage-responsive';
 
 const LOADING_BACKGROUND_SRC = 'https://c.tenor.com/WX_LDjYUrMsAAAAC/tenor.gif';
 
-installCloudImage({
+setPluginConfig({
   baseUrl: 'https://samples.scaleflex.com/',
   domain: 'cloudimg.io',
   lazyLoading: true,
