@@ -6,7 +6,6 @@ export interface CoordinatesInterface {
 export type Pair<Type1, Type2> = [Type1, Type2];
 
 export interface ConfigurationConfigInterface {
-  lazyTreeshold: number;
   token: string;
   placeholderBackground: string;
   domain: string;
@@ -14,20 +13,20 @@ export interface ConfigurationConfigInterface {
   limitFactor: number;
   lazyLoading: boolean;
   lazyInterval: number;
+  lazyTreeshold: number;
   doNotReplaceURL: boolean;
   devicePixelRatioList: number[];
 }
 
 export interface InstallPluginPropsInterface {
-  lazyTreeshold?: number;
-  token?: string;
+  token: string;
   placeholderBackground?: string;
   domain?: string;
   baseUrl?: string;
   limitFactor?: number;
   lazyInterval?: number;
-  lazyLoadOffset?: number;
   lazyLoading?: boolean;
+  lazyTreeshold?: number;
   doNotReplaceURL?: boolean;
   devicePixelRatioList?: number[];
 }

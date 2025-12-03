@@ -4,8 +4,8 @@ import {
 } from './general.interface';
 
 export let config: ConfigurationConfigInterface = {
-  token: 'demo',
-  placeholderBackground: '#f4f4f4',
+  token: '',
+  placeholderBackground: '#000000',
   domain: 'cloudimage.io',
   baseUrl: '/',
   limitFactor: 100,
