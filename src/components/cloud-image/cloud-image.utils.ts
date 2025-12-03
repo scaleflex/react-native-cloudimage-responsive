@@ -1,21 +1,21 @@
-import {
-  type getURLParamsStringFunctionType,
-  type ConstructURLParamStringFromPropsFunctionType,
-  type SetURLParamFunctionType,
-  type FunctionCallerInterface,
-  type OperationImageGravityType,
-  type FocalPointInterface,
-  type OperationImagePositionableCropInterface,
-  type OperationRadiusInterface,
-  type OperationAspectRatioInterface,
-  type ColorOverlayInterface,
-  type FilterFaceBlurInterface,
-  type PaddingInterface,
-  type WatermarkScaleInterface,
-  type WatermarkPositionInterface,
-  type WatermarkFontSizeInterface,
-} from './cloudimage.interface';
-import { type CoordinatesInterface, type Pair } from '../../general.interface';
+import type {
+  getURLParamsStringFunctionType,
+  ConstructURLParamStringFromPropsFunctionType,
+  SetURLParamFunctionType,
+  FunctionCallerInterface,
+  OperationGravityType,
+  OperationFocalPointInterface,
+  OperationPositionableCropInterface,
+  OperationRadiusInterface,
+  OperationAspectRatioInterface,
+  FilterColorOverlayInterface,
+  FilterFaceBlurInterface,
+  WatermarkPaddingInterface,
+  WatermarkScaleInterface,
+  WatermarkPositionInterface,
+  WatermarkFontSizeInterface,
+} from './cloud-image.interface';
+import type { CoordinatesInterface, Pair } from '../../general.interface';
 import { config } from '../../general.utils';
 import { PixelRatio } from 'react-native';
 
@@ -150,13 +150,13 @@ const setDevicePixelRatioURLParam: SetURLParamFunctionType<number> = (
 };
 
 const setOperationGravityURLParam: SetURLParamFunctionType<
-  OperationImageGravityType
+  OperationGravityType
 > = (_key, value, searchParams) => {
   const searchParamName: string = 'gravity';
   let searchParamValue: string = '';
 
   if (typeof value === 'object') {
-    const typedValue: FocalPointInterface = value;
+    const typedValue: OperationFocalPointInterface = value;
     let units: string = '';
 
     switch (typedValue.coordinatesType) {
@@ -184,7 +184,7 @@ const setOperationGravityURLParam: SetURLParamFunctionType<
 };
 
 const setPositionableCropURLParam: SetURLParamFunctionType<
-  OperationImagePositionableCropInterface
+  OperationPositionableCropInterface
 > = (_key, value, searchParams) => {
   if (value.bottomRight) {
     const searchParamName: string = 'br_px';
@@ -221,11 +221,9 @@ const setFaceMarginURLParam: SetURLParamFunctionType<
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setColorOverlayParam: SetURLParamFunctionType<ColorOverlayInterface> = (
-  _key,
-  value,
-  searchParams
-) => {
+const setColorOverlayParam: SetURLParamFunctionType<
+  FilterColorOverlayInterface
+> = (_key, value, searchParams) => {
   const { opacity = 0.5, color } = value;
 
   const searchParamName: string = 'colorize';
@@ -314,7 +312,7 @@ const setAspectRatioURLParam: SetURLParamFunctionType<
   searchParams.set(searchParamName, searchParamValue);
 };
 
-const setPaddingURLParam: SetURLParamFunctionType<PaddingInterface> = (
+const setPaddingURLParam: SetURLParamFunctionType<WatermarkPaddingInterface> = (
   _key,
   value,
   searchParams

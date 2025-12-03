@@ -1,4 +1,4 @@
-import { type PlaceholderPropsInterface } from './placeholder.interface';
+import type { PlaceholderPropsInterface } from './placeholder.interface';
 import { type FC } from 'react';
 import { View, Image } from 'react-native';
 

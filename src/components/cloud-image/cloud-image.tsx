@@ -1,12 +1,12 @@
-import { type CloudImagePropsInterface } from './cloudimage.interface';
+import type { CloudImagePropsInterface } from './cloud-image.interface';
 import { constructImageSource, config } from '../../general.utils';
-import { getURLParamsString } from './cloudimage.utils';
+import { getURLParamsString } from './cloud-image.utils';
 import { useEffect, useRef, useState, type FC } from 'react';
 import { View, type LayoutChangeEvent } from 'react-native';
-import Placeholder from '../placeholder/placeholder';
-import ImageWrapper from './image-wrapper';
+import Placeholder from '../../components/placeholder/placeholder';
+import CloudImageWrapper from './cloud-image-wrapper';
 import { Dimensions } from 'react-native';
-import { styles } from './cloudimage.styles';
+import { styles } from './cloud-image.styles';
 
 const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   const {
@@ -14,7 +14,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     lazyLoading,
     placeholderBackground: globalPlaceholderBackground,
     lazyInterval,
-    lazyTreeshold,
+    lazyThreshold,
   } = config;
 
   const {
@@ -46,15 +46,15 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
           pageX: number,
           pageY: number
         ) => {
-          const rectTop = pageY - lazyTreeshold;
-          const rectBottom = pageY + height + lazyTreeshold;
-          const rectWidth = pageX + width + lazyTreeshold;
+          const rectTop = pageY - lazyThreshold;
+          const rectBottom = pageY + height + lazyThreshold;
+          const rectWidth = pageX + width + lazyThreshold;
 
           const isRectVisible =
             rectBottom >= 0 &&
             rectTop <= windowHeight &&
             rectWidth > 0 &&
-            rectWidth <= windowWidth + 2 * lazyTreeshold;
+            rectWidth <= windowWidth + 2 * lazyThreshold;
 
           if (isRectVisible) {
             setVisibility(true);
@@ -67,7 +67,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [lazyInterval, lazyTreeshold]);
+  }, [lazyInterval, lazyThreshold]);
 
   const searchParamsString = getURLParamsString({
     containerHeight,
@@ -98,7 +98,7 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
       )}
 
       {shouldLoadImage && (
-        <ImageWrapper
+        <CloudImageWrapper
           onLoad={() => {
             setLoaded(true);
           }}

@@ -1,17 +1,17 @@
-import {
-  type InstallPluginFunctionType,
-  type ConfigurationConfigInterface,
+import type {
+  InstallPluginFunctionType,
+  ConfigurationConfigInterface,
 } from './general.interface';
 
 export let config: ConfigurationConfigInterface = {
   token: '',
-  placeholderBackground: '#000000',
+  placeholderBackground: 'rgba(0, 0, 0, 0)',
   domain: 'cloudimage.io',
   baseUrl: '/',
   limitFactor: 100,
   lazyLoading: true,
   lazyInterval: 1000,
-  lazyTreeshold: 50,
+  lazyThreshold: 50,
   doNotReplaceURL: false,
   devicePixelRatioList: [1, 1.5, 2],
 };
@@ -31,6 +31,6 @@ export const constructImageSource = (
   return `${url.toString()}?${searchParamsString}`;
 };
 
-export const installCloudImage: InstallPluginFunctionType = (props) => {
+export const setPluginConfig: InstallPluginFunctionType = (props) => {
   config = { ...config, ...props };
 };

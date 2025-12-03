@@ -13,7 +13,7 @@ export interface ConfigurationConfigInterface {
   limitFactor: number;
   lazyLoading: boolean;
   lazyInterval: number;
-  lazyTreeshold: number;
+  lazyThreshold: number;
   doNotReplaceURL: boolean;
   devicePixelRatioList: number[];
 }
@@ -26,7 +26,7 @@ export interface InstallPluginPropsInterface {
   limitFactor?: number;
   lazyInterval?: number;
   lazyLoading?: boolean;
-  lazyTreeshold?: number;
+  lazyThreshold?: number;
   doNotReplaceURL?: boolean;
   devicePixelRatioList?: number[];
 }

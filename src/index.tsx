@@ -1,4 +1,4 @@
-import CloudImage from './components/cloudimage/cloudimage';
-import { installCloudImage } from './general.utils';
+import CloudImage from './components/cloud-image/cloud-image';
+import { setPluginConfig } from './general.utils';
 
-export { CloudImage, installCloudImage };
+export { CloudImage, setPluginConfig };

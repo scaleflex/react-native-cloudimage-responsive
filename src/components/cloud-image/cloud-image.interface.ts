@@ -1,13 +1,13 @@
-import { type CoordinatesInterface } from '../../general.interface';
+import type { CoordinatesInterface } from '../../general.interface';
 import { type ImageStyle } from 'react-native';
 
-export interface OperationImagePositionableCropInterface {
+export interface OperationPositionableCropInterface {
   topLeft?: CoordinatesInterface;
   bottomRight?: CoordinatesInterface;
   center?: CoordinatesInterface;
 }
 
-export interface ColorOverlayInterface {
+export interface FilterColorOverlayInterface {
   color: string;
   opacity?: number;
 }
@@ -23,14 +23,14 @@ export interface FiltersPropertiesIntreface {
   contrast?: number;
   saturate?: number;
   grayScale?: number;
-  colorOverlay?: ColorOverlayInterface;
+  colorOverlay?: FilterColorOverlayInterface;
   pixelate?: number;
   blur?: number;
   sharpen?: number;
   faceBlur?: FilterFaceBlurInterface;
 }
 
-export type GravityType =
+export type WatermarkGravityType =
   | 'north'
   | 'northwest'
   | 'northeast'
@@ -48,7 +48,7 @@ export interface WatermarkScaleInterface {
   scaleType?: 'pixles' | 'percentage';
 }
 
-export interface PaddingInterface {
+export interface WatermarkPaddingInterface {
   x: number;
   y?: number;
   xType?: 'pixles' | 'percentage';
@@ -72,8 +72,8 @@ export interface WatermarkPropertiesIntreface {
   text?: string;
   font?: string;
   textColor?: string;
-  watermarkGravity?: GravityType;
-  padding?: PaddingInterface;
+  watermarkGravity?: WatermarkGravityType;
+  padding?: WatermarkPaddingInterface;
   position?: WatermarkPositionInterface;
   scale?: WatermarkScaleInterface;
   fontSize?: WatermarkFontSizeInterface;
@@ -86,7 +86,7 @@ export interface WatermarksPropertiesIntreface extends WatermarkPropertiesIntref
 export interface OperationsPropertiesIntreface {
   width?: number;
   height?: number;
-  function?: ImageFuncType;
+  function?: OperationImageFuncType;
   preventEnlargement?: boolean;
   rotate?: number;
   trim?: number;
@@ -102,8 +102,8 @@ export interface OperationsPropertiesIntreface {
   backgroundGravity?: OperationBackgroundGravityType;
   horizontalFlip?: boolean;
   verticalFlip?: boolean;
-  operationGravity?: OperationImageGravityType;
-  positionableCrop?: OperationImagePositionableCropInterface;
+  operationGravity?: OperationGravityType;
+  positionableCrop?: OperationPositionableCropInterface;
   faceMargin?: number | CoordinatesInterface;
   aspectRatio?: OperationAspectRatioInterface;
   radius?: number | OperationRadiusInterface;
@@ -114,7 +114,7 @@ export interface OperationAspectRatioInterface {
   to?: number | string;
 }
 
-export interface FocalPointInterface extends CoordinatesInterface {
+export interface OperationFocalPointInterface extends CoordinatesInterface {
   coordinatesType?: 'pixels' | 'percentage' | 'coefficient';
 }
 
@@ -125,7 +125,7 @@ export interface OperationRadiusInterface {
   bottomLeft: number | 'max';
 }
 
-export type ImageFuncType =
+export type OperationImageFuncType =
   | 'crop'
   | 'face'
   | 'cropfit'
@@ -148,13 +148,13 @@ export type OperationBackgroundGravityType =
   | 'southeast'
   | 'trim';
 
-export type OperationImageGravityType =
+export type OperationGravityType =
   | 'auto'
   | 'face'
   | 'trim'
   | 'smart'
   | OperationBackgroundGravityType
-  | FocalPointInterface;
+  | OperationFocalPointInterface;
 
 export type CrossOriginType = 'anonymous' | 'use-credentials';
 

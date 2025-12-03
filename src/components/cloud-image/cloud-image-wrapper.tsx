@@ -1,8 +1,8 @@
-import { type ImageWrapperPropsInterface } from './cloudimage.interface';
+import type { ImageWrapperPropsInterface } from './cloud-image.interface';
 import { useEffect, useState, type FC } from 'react';
 import { Image } from 'react-native';
 
-const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
+const CloudImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
   const {
     src,
     referrerPolicy,
@@ -44,4 +44,4 @@ const ImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
   );
 };
 
-export default ImageWrapper;
+export default CloudImageWrapper;
