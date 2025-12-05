@@ -18,7 +18,7 @@ export interface FilterFaceBlurInterface {
   sigma?: number;
 }
 
-export interface FiltersPropertiesIntreface {
+export interface FiltersPropertiesInterface {
   brightness?: number;
   contrast?: number;
   saturate?: number;
@@ -65,7 +65,7 @@ export interface WatermarkFontSizeInterface {
   max?: boolean;
 }
 
-export interface WatermarkPropertiesIntreface {
+export interface WatermarkPropertiesInterface {
   addWatermark?: boolean;
   opacity?: number;
   url?: string;
@@ -79,11 +79,11 @@ export interface WatermarkPropertiesIntreface {
   fontSize?: WatermarkFontSizeInterface;
 }
 
-export interface WatermarksPropertiesIntreface extends WatermarkPropertiesIntreface {
-  multipleWatermarks?: WatermarkPropertiesIntreface[];
+export interface WatermarksPropertiesInterface extends WatermarkPropertiesInterface {
+  multipleWatermarks?: WatermarkPropertiesInterface[];
 }
 
-export interface OperationsPropertiesIntreface {
+export interface OperationsPropertiesInterface {
   width?: number;
   height?: number;
   function?: OperationImageFuncType;
@@ -187,9 +187,9 @@ export interface CloudImagePropsInterface {
   autoResize?: boolean;
   placeholderBackground?: string;
   style?: ImageStyle;
-  operations?: OperationsPropertiesIntreface | string;
-  watermarks?: WatermarksPropertiesIntreface | string;
-  filters?: FiltersPropertiesIntreface | string;
+  operations?: OperationsPropertiesInterface | string;
+  watermarks?: WatermarksPropertiesInterface | string;
+  filters?: FiltersPropertiesInterface | string;
 }
 
 export interface GetURLParamsStringPropsInterface extends CloudImagePropsInterface {
@@ -203,9 +203,9 @@ export interface FunctionCallerInterface {
 }
 
 export type ConstructURLParamStringFromPropsFunctionType = (props: {
-  operations: OperationsPropertiesIntreface | string;
-  watermarks: WatermarksPropertiesIntreface | string;
-  filters: FiltersPropertiesIntreface | string;
+  operations: OperationsPropertiesInterface | string;
+  watermarks: WatermarksPropertiesInterface | string;
+  filters: FiltersPropertiesInterface | string;
 }) => string;
 
 export type getURLParamsStringFunctionType = (
