@@ -40,10 +40,10 @@ export default function App() {
 
 |        Property         |        Type & Default        | Description                                                                                                                                                                                                                      |
 | :---------------------: | :--------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         `token`         |       `string` : `''`        | **Required.** Part of the [resource URL](#cloudimmage-url-format). Your Cloudimage customer token. Subscribe for a Cloudimage account to get one. The subscription takes less than a minute.                                     |
+|         `token`         |       `string` : `''`        | **Required.** Part of the [resource URL](#cloudimage-url-format). Your Cloudimage customer token. Subscribe for a Cloudimage account to get one. The subscription takes less than a minute.                                      |
 | `placeholderBackground` |    `string` : `'#f4f4f4'`    | Placeholder coloured background while the image is loading. Can be set to a [valid URL](https://en.wikipedia.org/wiki/URL) in order do display some other resource (image, git, etc.) to display while main resource is loading. |
-|        `domain`         | `string` : `'cloudimage.io'` | Part of the [resource URL](#cloudimmage-url-format). Change this if you use a custom CNAME for your Cloudimage integration.                                                                                                      |
-|        `baseUrl`        |       `string` : `'/'`       | Part of the [resource URL](#cloudimmage-url-format). Your image folder at origin; this alows to shorten your origin image URLs.                                                                                                  |
+|        `domain`         | `string` : `'cloudimage.io'` | Part of the [resource URL](#cloudimage-url-format). Change this if you use a custom CNAME for your Cloudimage integration.                                                                                                       |
+|        `baseUrl`        |       `string` : `'/'`       | Part of the [resource URL](#cloudimage-url-format). Your image folder at origin; this alows to shorten your origin image URLs.                                                                                                   |
 |      `limitFactor`      |       `number` : `100`       | Rounds up the size of the image to the nearest limitFactor value (for an image with width 358px and limitFactor equal to 100, the plugin will round up to 400px).                                                                |
 |    `doNotReplaceURL`    |     `boolean` : `false`      | If set to true, the plugin will only add query parameters to the provided image source URL. As a result, resource URL will look like this: _src?operations&filters&watermarks_.                                                  |
 | `devicePixelRatioList`  |  `number[]` : `[1, 1.5, 2]`  | List of supported device pixel ratios. If there is no need to support retina devices, you should set empty array. Only positive numbers limited to 5 are supported.                                                              |
@@ -53,7 +53,7 @@ export default function App() {
 
 Once that's done you can start using plugin [components](#components) in your application.
 
-cloudimmage-url-format
+<a name="cloudimmage-url-format"></a>
 
 #### Cloudimage URL Format
 
