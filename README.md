@@ -4,7 +4,7 @@
 
 ### Cloudimage account
 
-To use the Cloudimage Cloud plugin, you will need a Cloudimage token to deliver your images over CDN. Don't worry, it only takes seconds to get one by registering [here](https://www.cloudimage.io/registration?utm_source=referral&utm_medium=referral&utm_campaign=cloudimage_react_native_plugin&utm_content=readme). Once your token is created, you can configure it as described below.
+To use the Cloudimage React Native library, you will need a Cloudimage token to deliver your images over CDN. Don't worry, it only takes seconds to get one by registering [here](https://www.cloudimage.io/registration?utm_source=referral&utm_medium=referral&utm_campaign=cloudimage_react_native_plugin&utm_content=readme). Once your token is created, you can configure it as described below.
 
 ## Installation
 
