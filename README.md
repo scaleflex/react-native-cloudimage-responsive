@@ -11,13 +11,13 @@ To use the Cloudimage React Native library, you will need a Cloudimage token to 
 To start using this plugin simply add it to your project with the package manager of your choice.
 
 ```
-yarn add react-native-cloudimage-cloud
+yarn add react-native-cloudimage-responsive
 ```
 
 **OR**
 
 ```
-npm install react-native-cloudimage-cloud
+npm install react-native-cloudimage-responsive
 ```
 
 ## Setup
