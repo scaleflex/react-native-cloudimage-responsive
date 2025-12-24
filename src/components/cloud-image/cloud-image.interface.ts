@@ -1,5 +1,5 @@
 import type { CoordinatesInterface } from '../../general.interface';
-import { type ImageStyle } from 'react-native';
+import { type ImageProps, type ViewStyle } from 'react-native';
 
 export interface OperationPositionableCropInterface {
   topLeft?: CoordinatesInterface;
@@ -155,38 +155,16 @@ export type OperationGravityType =
   | 'smart'
   | OperationBackgroundGravityType
   | OperationFocalPointInterface;
-
-export type CrossOriginType = 'anonymous' | 'use-credentials';
-
-export type ReferrerPolicyType =
-  | 'no-referrer'
-  | 'no-referrer-when-downgrade'
-  | 'origin'
-  | 'origin-when-cross-origin'
-  | 'same-origin'
-  | 'strict-origin'
-  | 'strict-origin-when-cross-origin'
-  | 'unsafe-url';
-
-export type CommonHandlerType = () => void;
-export interface ImageWrapperPropsInterface {
+export interface ImageWrapperPropsInterface extends Omit<ImageProps, 'source'> {
   src: string;
-  alt?: string;
-  referrerPolicy?: ReferrerPolicyType;
-  crossOrigin?: CrossOriginType;
-  style?: ImageStyle;
-  onLoad?: CommonHandlerType;
 }
 
-export interface CloudImagePropsInterface {
+export interface CloudImagePropsInterface extends Omit<ImageProps, 'source'> {
   src: string;
-  alt?: string;
-  referrerPolicy?: ReferrerPolicyType;
-  crossOrigin?: CrossOriginType;
   limitFactor?: number;
   autoResize?: boolean;
+  wrapperStyle?: ViewStyle;
   placeholderBackground?: string;
-  style?: ImageStyle;
   operations?: OperationsPropertiesInterface | string;
   watermarks?: WatermarksPropertiesInterface | string;
   filters?: FiltersPropertiesInterface | string;

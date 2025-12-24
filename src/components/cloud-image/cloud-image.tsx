@@ -21,9 +21,9 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
     src: imageSrc,
     style,
     alt,
-    referrerPolicy = 'strict-origin-when-cross-origin',
-    crossOrigin = 'anonymous',
     placeholderBackground = globalPlaceholderBackground,
+    wrapperStyle,
+    onLoad = () => {},
   } = props;
 
   const [isLoaded, setLoaded] = useState<boolean>(false);
@@ -88,7 +88,11 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
   };
 
   return (
-    <View onLayout={handleLayoutChange} style={styles.imageContainer} ref={ref}>
+    <View
+      onLayout={handleLayoutChange}
+      style={{ ...styles.wrapper, ...wrapperStyle }}
+      ref={ref}
+    >
       {!isLoaded && (
         <Placeholder
           placeholderContent={placeholderBackground}
@@ -99,11 +103,11 @@ const CloudImage: FC<CloudImagePropsInterface> = (props) => {
 
       {shouldLoadImage && (
         <CloudImageWrapper
-          onLoad={() => {
+          {...props}
+          onLoad={(event) => {
             setLoaded(true);
+            onLoad(event);
           }}
-          referrerPolicy={referrerPolicy}
-          crossOrigin={crossOrigin}
           src={src}
           style={style}
           alt={alt ?? src}

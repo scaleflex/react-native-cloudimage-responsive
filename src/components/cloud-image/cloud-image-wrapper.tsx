@@ -3,14 +3,7 @@ import { useEffect, useState, type FC } from 'react';
 import { Image } from 'react-native';
 
 const CloudImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
-  const {
-    src,
-    referrerPolicy,
-    crossOrigin,
-    style,
-    alt,
-    onLoad = () => {},
-  } = props;
+  const { src, style } = props;
 
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -34,12 +27,9 @@ const CloudImageWrapper: FC<ImageWrapperPropsInterface> = (props) => {
 
   return (
     <Image
-      referrerPolicy={referrerPolicy}
-      crossOrigin={crossOrigin}
+      {...props}
       source={{ uri: src, width, height }}
       style={{ ...style, width, height }}
-      onLoad={onLoad}
-      alt={alt ?? src}
     />
   );
 };
