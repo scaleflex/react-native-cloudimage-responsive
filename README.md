@@ -1,23 +1,23 @@
-# Cloudimage responsive plugin for React-Native
+# Clouidmage responsive plugin for React-Native
 
 ## Requirements
 
 ### Cloudimage account
 
-To use the Cloudimage React Native library, you will need a Cloudimage token to deliver your images over CDN. Don't worry, it only takes seconds to get one by registering [here](https://www.cloudimage.io/registration?utm_source=referral&utm_medium=referral&utm_campaign=cloudimage_react_native_plugin&utm_content=readme). Once your token is created, you can configure it as described below.
+To use the Cloudimage Cloud plugin, you will need a Cloudimage token to deliver your images over CDN. Don't worry, it only takes seconds to get one by registering [here](https://www.cloudimage.io/registration). Once your token is created, you can configure it as described below.
 
 ## Installation
 
 To start using this plugin simply add it to your project with the package manager of your choice.
 
 ```
-yarn add react-native-cloudimage-responsive
+yarn add react-native-cloudimage-cloud
 ```
 
 **OR**
 
 ```
-npm install react-native-cloudimage-responsive
+npm install react-native-cloudimage-cloud
 ```
 
 ## Setup
@@ -40,10 +40,10 @@ export default function App() {
 
 |        Property         |        Type & Default        | Description                                                                                                                                                                                                                      |
 | :---------------------: | :--------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-|         `token`         |       `string` : `''`        | **Required.** Part of the [resource URL](#cloudimage-url-format). Your Cloudimage customer token. Subscribe for a Cloudimage account to get one. The subscription takes less than a minute.                                      |
-| `placeholderBackground` |    `string` : `'#f4f4f4'`    | Placeholder coloured background while the image is loading. Can be set to a [valid URL](https://en.wikipedia.org/wiki/URL) in order to display some other resource (image, gif, etc.) to display while main resource is loading. |
-|        `domain`         | `string` : `'cloudimage.io'` | Part of the [resource URL](#cloudimage-url-format). Change this if you use a custom CNAME for your Cloudimage integration.                                                                                                       |
-|        `baseUrl`        |       `string` : `'/'`       | Part of the [resource URL](#cloudimage-url-format). Your image folder at origin; this alows to shorten your origin image URLs.                                                                                                   |
+|         `token`         |       `string` : `''`        | **Required.** Part of the [resource URL](#cloudimmage-url-format). Your Cloudimage customer token. Subscribe for a Cloudimage account to get one. The subscription takes less than a minute.                                     |
+| `placeholderBackground` |    `string` : `'#f4f4f4'`    | Placeholder coloured background while the image is loading. Can be set to a [valid URL](https://en.wikipedia.org/wiki/URL) in order do display some other resource (image, git, etc.) to display while main resource is loading. |
+|        `domain`         | `string` : `'cloudimage.io'` | Part of the [resource URL](#cloudimmage-url-format). Change this if you use a custom CNAME for your Cloudimage integration.                                                                                                      |
+|        `baseUrl`        |       `string` : `'/'`       | Part of the [resource URL](#cloudimmage-url-format). Your image folder at origin; this alows to shorten your origin image URLs.                                                                                                  |
 |      `limitFactor`      |       `number` : `100`       | Rounds up the size of the image to the nearest limitFactor value (for an image with width 358px and limitFactor equal to 100, the plugin will round up to 400px).                                                                |
 |    `doNotReplaceURL`    |     `boolean` : `false`      | If set to true, the plugin will only add query parameters to the provided image source URL. As a result, resource URL will look like this: _src?operations&filters&watermarks_.                                                  |
 | `devicePixelRatioList`  |  `number[]` : `[1, 1.5, 2]`  | List of supported device pixel ratios. If there is no need to support retina devices, you should set empty array. Only positive numbers limited to 5 are supported.                                                              |
@@ -53,11 +53,11 @@ export default function App() {
 
 Once that's done you can start using plugin [components](#components) in your application.
 
-<a name="cloudimmage-url-format"></a>
+cloudimmage-url-format
 
 #### Cloudimage URL Format
 
-_token.domain.tld/baseUrl/src?operations&filters&watermarks_
+_token.domen/baseUrl/src?operations&filters&watermarks_
 
 ## Basic example
 
@@ -129,19 +129,18 @@ const styles = StyleSheet.create({
 
 ###### Properties
 
-|        Property         |                                             Type : Default                                              | Description                                                                                                                                                                                                                                                                                             |
-| :---------------------: | :-----------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          `src`          |                                        `string` : **undefined**                                         | Image source.                                                                                                                                                                                                                                                                                           |
-|          `alt`          |                                      `string` : **equal to** `src`                                      | Image alt.                                                                                                                                                                                                                                                                                              |
-|      `crossOrigin`      |                                        `string` : `'anonymous'`                                         | Cross-Origin Resource Sharing. [MDN documentation.](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS) Possible values: `'anonymous', 'use-credentials'`.                                                                                                                                   |
-|    `referrerPolicy`     |                             `string` : `'strict-origin-when-cross-origin'`                              | Referrer policy [MDN docs.](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Referrer-Policy) Possible values: `'no-referrer', 'no-referrer-when-downgrade', 'origin', 'origin-when-cross-origin', 'same-origin', 'strict-origin', 'strict-origin-when-cross-origin', 'unsafe-url'`. |
-|      `limitFactor`      |                             `number` : **taken from configuration object**                              | Use to specify some value that is different from global config.                                                                                                                                                                                                                                         |
-|      `autoResize`       |                                           `boolean` : `true`                                            | Automatically determine best image sizes. **Sets width and height property of operations object.**                                                                                                                                                                                                      |
-| `placeholderBackground` |                             `string` : **taken from configuration object**                              | Use to specify some value that is different from global config.                                                                                                                                                                                                                                         |
-|         `style`         |                                      `ImageStyle` : **undefined**                                       | [CSS styles](https://developer.mozilla.org/en-US/docs/Web/CSS) passed to image.                                                                                                                                                                                                                         |
-|      `operations`       |   [`OperationsPropertiesInterface`](#operations-properties-interface) **or** `string` : **undefined**   | Use to apply some image transformations before delivering.                                                                                                                                                                                                                                              |
-|      `watermarks`       | See [`WatermarksPropertiesInterface`](#watermarks-properties-interface) **or** `string` : **undefined** | Use to add watermarks to a image before delivering.                                                                                                                                                                                                                                                     |
-|        `filters`        |    See [`FiltersPropertiesInterface`](#filters-properties-interface) **or** `string` : **undefined**    | Use to apply some filters to a image before delivering.                                                                                                                                                                                                                                                 |
+**Extends [React Native ImageProps](https://reactnative.dev/docs/image#props).**
+
+|        Property         |                                             Type : Default                                              | Description                                                                                          |
+| :---------------------: | :-----------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------- |
+|          `src`          |                                        `string` : **undefined**                                         | Image source.                                                                                        |
+|      `limitFactor`      |                             `number` : **taken from configuration object**                              | Use to specify some value that is different from global config.                                      |
+|      `autoResize`       |                                           `boolean` : `true`                                            | Automatically determine best image sizes. **Sets width and height property of operations object.**   |
+| `placeholderBackground` |                             `string` : **taken from configuration object**                              | Use to specify some value that is different from global config.                                      |
+|     `wrapperStyle`      |                                       `ViewStyle` : **undefined**                                       | [View CSS styles](https://reactnative.dev/docs/view-style-props) applied to image wrapper container. |
+|      `operations`       |   [`OperationsPropertiesInterface`](#operations-properties-interface) **or** `string` : **undefined**   | Use to apply some image transformations before delivering.                                           |
+|      `watermarks`       | See [`WatermarksPropertiesInterface`](#watermarks-properties-interface) **or** `string` : **undefined** | Use to add watermarks to a image before delivering.                                                  |
+|        `filters`        |    See [`FiltersPropertiesInterface`](#filters-properties-interface) **or** `string` : **undefined**    | Use to apply some filters to a image before delivering.                                              |
 
 <a name="operations-properties-interface"></a>
 
